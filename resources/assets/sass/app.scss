@@ -1,6 +1,6 @@
 
 // Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@import url("https://fonts.googleapis.com/css?family=Caveat|Raleway:300,400,600");
 
 // Variables
 @import "variables";
@@ -8,7 +8,26 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+// Welcome Page
+.img-bg {
+  background: url('https://images.unsplash.com/photo-1477870103390-4be4c7718e81?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=031c4ae207570bd3759db7d53fa83e36&auto=format&fit=crop&w=1350&q=80') center;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  z-index: -1;
+  color: white;
+  p {
+    font-family: $font-family-cursive;
+    font-size: calc(13vw + 10px);
+    text-shadow: 2px 2px #000;
+  }
+}
+
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+.navbar-brand {
+  font-family: $font-family-cursive;
+  font-size: 1.8rem;
 }
