@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Conversation;
 use App\PrivateMessage;
 use App\User;
+use App\Notifications\MessageReceived;
 use Illuminate\Http\Request;
 
 class ConversationsController extends Controller
@@ -17,21 +18,21 @@ class ConversationsController extends Controller
 
         return view('conversations.show', [
             'conversation' => $conversation,
-            'me' =>$me,
+            'me' => $me,
+            'user' => $user,
         ]);
     }
 
-    public function sendMessage(Conversation $conversation, Request $request) {
+    public function sendMessage(Conversation $conversation, User $user, Request $request) {
         $me = $request->user();
-        $username = $conversation->users->except($me->id)->implode('username');
         $message = $request->input('message');
         PrivateMessage::create([
             'conversation_id' => $conversation->id,
             'user_id' => $me->id,
             'message' => $message,
         ]);
-
-        return redirect('/conversation/'.$username);
+        $user->notify(new MessageReceived($me));
+        return redirect("/conversation/$user->username");
     }
 
     private function findByUsername ($username) {

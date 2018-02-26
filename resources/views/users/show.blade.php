@@ -12,11 +12,13 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row justify-content-around">
-                        @include('users.follow')
-                        <form action="{{ '/conversation/'.$user->username }}" method="post" class="mb-3 text-center">
-                            @csrf
-                            <button class="btn btn-outline-primary">Talk</button>
-                        </form>
+                        @if(auth()->user()->id !== $user->id)
+                            @include('users.follow')    
+                            <form action="{{ '/conversation/'.$user->username }}" method="post" class="mb-3 text-center">
+                                @csrf
+                                <button class="btn btn-outline-primary">Talk</button>
+                            </form>
+                        @endif
                     </div>
                     <h5 class="card-title">Name: {{ $user->name }}</h5>
                     <p class="card-text">Username: {{ $user->username }}</p>

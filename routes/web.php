@@ -26,9 +26,9 @@ Route::get('/api/trips/{trip}/comments', 'TripsController@comments');
 Route::get('/trips/{trip}', 'TripsController@show');
 
 Route::match(['get', 'post'], '/conversation/{username}', 'ConversationsController@show');
-Route::post('/conversation/{conversation}/message', 'ConversationsController@sendMessage');
+Route::post('/conversation/{conversation}/{user}', 'ConversationsController@sendMessage');
 
-Route::get('/api/notifications', 'UsersController@notifications');
+Route::get('/api/notifications/{type}', 'UsersController@notifications');
 Route::get('/{username}/follows', 'UsersController@follows');
 Route::get('/{username}/followers', 'UsersController@followers');
 Route::post('/{username}/follow', 'UsersController@follow');

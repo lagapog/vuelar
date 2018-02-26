@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class UserFollowed extends Notification
+class MessageReceived extends Notification
 {
     use Queueable;
 
@@ -18,11 +18,11 @@ class UserFollowed extends Notification
      *
      * @return void
      */
-    public $follower;
+    public $sender;
 
-    public function __construct(User $follower)
+    public function __construct(User $sender)
     {
-        $this->follower = $follower;
+        $this->sender = $sender;
     }
 
     /**
@@ -58,12 +58,12 @@ class UserFollowed extends Notification
      */
     public function toArray($notifiable)
     {
-        $message = '@'.$this->follower->username.' is following you';
-        $link = '/'.$this->follower->username;
+        $message = '@'.$this->sender->username.' sent you a message';
+        $link = '/conversation/'.$this->sender->username;
 
         return [
             'link' => $link,
-            'message' => $message,
+            'message' => @$message,
         ];
     }
 

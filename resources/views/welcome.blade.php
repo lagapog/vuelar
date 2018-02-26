@@ -1,7 +1,4 @@
 @extends('layouts.app')
-@section('title')
-    Vuelar
-@endsection
 @section('content')
     <div class="container-fluid img-bg">
         <div class="row h-100 align-items-center">

@@ -51,9 +51,13 @@ class UsersController extends Controller
         return redirect("/$username");
     }
 
-    public function notifications (Request $request) {
+    public function notifications ($type, Request $request) {
         $me = $request->user();
-        return $me->notifications;
+        if($type == "alerts") {
+            return $me->notifications->where('type', 'App\Notifications\UserFollowed');
+        }
+
+        return $me->notifications->where('type', 'App\Notifications\MessageReceived');
     }
 
     private function findByUsername ($username) {

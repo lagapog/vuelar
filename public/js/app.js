@@ -52170,11 +52170,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
 
-    props: ['user'],
+    props: ['user', 'type'],
     mounted: function mounted() {
         var _this = this;
 
-        axios.get('/api/notifications').then(function (res) {
+        axios.get('/api/notifications/' + this.type).then(function (res) {
             _this.notifications = res.data;
             Echo.private('App.User.' + _this.user).notification(function (notification) {
                 _this.notifications.unshift(notification);
@@ -52201,8 +52201,9 @@ var render = function() {
       return _c(
         "a",
         {
+          key: notification.id,
           staticClass: "dropdown-item",
-          attrs: { href: "/" + notification.data.follower.username }
+          attrs: { href: notification.data.link }
         },
         [_vm._v("\n        " + _vm._s(notification.data.message) + "\n    ")]
       )
