@@ -5,9 +5,9 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+require('./bootstrap')
 
-window.Vue = require('vue');
+window.Vue = require('vue')
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -16,8 +16,9 @@ window.Vue = require('vue');
  */
 import store from './store'
 
-Vue.component('comments', require('./components/Comments.vue'));
-Vue.component('notifications', require('./components/Notifications.vue'));
+Vue.component('comments', require('./components/Comments.vue'))
+Vue.component('notifications', require('./components/Notifications.vue'))
+Vue.component('trips', require('./components/Trips.vue'))
 
 const app = new Vue({
     el: '#app',

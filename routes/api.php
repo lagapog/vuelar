@@ -20,5 +20,5 @@ Route::middleware('auth:api')->get('/users', function () {
 });
 
 Route::middleware('auth:api')->get('/trips', function() {
-    return Trip::all();
+    return Trip::with('user')->all();
 });

@@ -15,15 +15,7 @@ const store = new Vuex.Store({
   },
   actions: {
     changeUser({ commit }) {
-      const data = {
-        name: 'password',
-        client_id: '1',
-        client_secret: 'M1OykEwmtm9feaYJcPzpQSpgrjNWe5ZVmuk9d0h4',
-        username: 'agapo@123.com',
-        password: 'agapo',
-        scope: ''
-      }
-      return axios.get('http://localhost:8000/api/user', data)
+      return axios.get('http://localhost:8000/api/user')
         .then(response => commit('fetchUser', response.data))
         .catch();
     }

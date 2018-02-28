@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $trips = Trip::paginate(9);
+        $trips = Trip::with('user')->paginate(9);
         return view('home', [
             'trips' => $trips
         ]);

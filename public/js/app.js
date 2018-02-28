@@ -13919,6 +13919,7 @@ window.Vue = __webpack_require__(39);
 
 Vue.component('comments', __webpack_require__(42));
 Vue.component('notifications', __webpack_require__(46));
+Vue.component('trips', __webpack_require__(72));
 
 var app = new Vue({
   el: '#app',
@@ -52029,7 +52030,6 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(44);
 //
 //
 //
@@ -52040,9 +52040,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -52051,13 +52048,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
 
-    computed: Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapState */])(['user']),
     props: ['trip'],
-    methods: Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])(['changeUser']),
     mounted: function mounted() {
         var _this = this;
 
-        this.changeUser();
         axios.get('/api/trips/' + this.trip + '/comments').then(function (res) {
             _this.comments = res.data;
         });
@@ -52071,10 +52065,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 /* unused harmony export Store */
 /* unused harmony export install */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return mapState; });
+/* unused harmony export mapState */
 /* unused harmony export mapMutations */
 /* unused harmony export mapGetters */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return mapActions; });
+/* unused harmony export mapActions */
 /* unused harmony export createNamespacedHelpers */
 /**
  * vuex v3.0.1
@@ -53021,11 +53015,7 @@ var render = function() {
     "div",
     { staticClass: "row mt-4" },
     [
-      _c("div", { staticClass: "col-12" }, [
-        _c("h2", [_vm._v("Comments about the trip!")]),
-        _vm._v(" "),
-        _c("span", [_vm._v(_vm._s(_vm.user))])
-      ]),
+      _vm._m(0),
       _vm._v(" "),
       _vm._l(_vm.comments, function(comment) {
         return _c(
@@ -53044,7 +53034,16 @@ var render = function() {
     2
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-12" }, [
+      _c("h2", [_vm._v("Comments about the trip!")])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -53211,15 +53210,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     changeUser: function changeUser(_ref) {
       var commit = _ref.commit;
 
-      var data = {
-        name: 'password',
-        client_id: '1',
-        client_secret: 'M1OykEwmtm9feaYJcPzpQSpgrjNWe5ZVmuk9d0h4',
-        username: 'agapo@123.com',
-        password: 'agapo',
-        scope: ''
-      };
-      return __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get('http://localhost:8000/api/user', data).then(function (response) {
+      return __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get('http://localhost:8000/api/user').then(function (response) {
         return commit('fetchUser', response.data);
       }).catch();
     }
@@ -53227,6 +53218,137 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
 });
 
 /* harmony default export */ __webpack_exports__["a"] = (store);
+
+/***/ }),
+/* 55 */,
+/* 56 */,
+/* 57 */,
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */,
+/* 65 */,
+/* 66 */,
+/* 67 */,
+/* 68 */,
+/* 69 */,
+/* 70 */,
+/* 71 */,
+/* 72 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(11)
+/* script */
+var __vue_script__ = __webpack_require__(73)
+/* template */
+var __vue_template__ = __webpack_require__(74)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Trips.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-30b67247", Component.options)
+  } else {
+    hotAPI.reload("data-v-30b67247", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 73 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['trip']
+});
+
+/***/ }),
+/* 74 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "card" }, [
+    _c("img", { staticClass: "card-img-top", attrs: { src: _vm.trip.image } }),
+    _vm._v(" "),
+    _c("div", { staticClass: "card-body" }, [
+      _c("h5", { staticClass: "card-title" }, [
+        _vm._v(_vm._s(_vm.trip.location))
+      ]),
+      _vm._v(" "),
+      _c("p", { staticClass: "card-text" }, [
+        _vm._v("\n            By "),
+        _c("a", { attrs: { href: "/" + _vm.trip.user.username } }, [
+          _vm._v(_vm._s(_vm.trip.user.username))
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          staticClass: "btn btn-primary",
+          attrs: { href: "`/trips/${trip.id}`" }
+        },
+        [_vm._v("Read more")]
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-30b67247", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

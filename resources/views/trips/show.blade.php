@@ -1,7 +1,4 @@
 @extends('layouts.app')
-@section('title')
-    Vuelar | {{ $trip->location }}
-@endsection
 @section('content')
     <div class="container">
         <div class="row mt-4 justify-content-center align-items-center">
