@@ -6,7 +6,7 @@
         <p class="card-text">
             By <a :href="`/${trip.user.username}`">{{ trip.user.username }}</a>
         </p>
-        <a href="`/trips/${trip.id}`" class="btn btn-primary">Read more</a>
+        <a :href="`/trips/${trip.id}`" class="btn btn-primary">Read more</a>
     </div>
 </div>  
 </template>

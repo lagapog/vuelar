@@ -20,6 +20,7 @@ Vue.component('comments', require('./components/Comments.vue'))
 Vue.component('notifications', require('./components/Notifications.vue'))
 Vue.component('trips', require('./components/Trips.vue'))
 
+
 const app = new Vue({
     el: '#app',
     store

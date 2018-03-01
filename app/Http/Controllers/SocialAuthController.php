@@ -22,7 +22,7 @@ class SocialAuthController extends Controller
 
         if($existing !== null) {
             auth()->login($existing);
-            return redirect('/home');
+            return redirect('/');
         }else{
             session()->flash('fbUser', $user);
 
@@ -49,6 +49,6 @@ class SocialAuthController extends Controller
             'user_id' => $user->id,
         ]);
         auth()->login($user);
-        return redirect('home');
+        return redirect('/');
     }
 }
