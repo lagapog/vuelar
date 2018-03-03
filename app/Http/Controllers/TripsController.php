@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 
 class TripsController extends Controller
 {
+    public function getAll() {
+        return Trip::with('user')->get();
+    }
     public function show (Trip $trip) {
 
         return view('trips.show', [

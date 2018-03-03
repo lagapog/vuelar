@@ -8,47 +8,39 @@ use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
-    public function show ($username) {
-
-        $user = $this->findByUsername($username);
-
-        return view('users.show', [
-            'user' => $user
-        ]);
+    public function me(Request $request) {
+        $user = $request->user();
+        return User::with(['trips', 'follows', 'followers'])
+            ->where('username', $user->username)
+            ->firstOrFail();
     }
 
-    public function follows ($username) {
-
-        $user = $this->findByUsername($username);
-
-        return view('users.follows', [
-            'user' => $user
-        ]);
+    public function getAll() {
+        return User::all();
     }
 
-    public function followers ($username) {
-        $user = $this->findByUsername($username);
-
-        return view('users.followers', [
-            'user' => $user
-        ]);
+    public function findByUsername ($username, Request $request) {
+        $me = $request->user();
+        $user = User::with(['trips', 'follows', 'followers'])
+            ->where('username', $username)
+            ->firstOrFail();
+        $user->isFollow = $me->isFollowing($user);
+        return $user;
     }
 
     public function follow ($username, Request $request) {
-        $user = $this->findByUsername($username);
+        $user = User::where('username', $username)->firstOrFail();
         $me = $request->user();
 
         $me->follows()->attach($user);
         $user->notify(new UserFollowed($me));
-        return redirect("/$username");
     }
 
     public function unfollow ($username, Request $request) {
-        $user = $this->findByUsername($username);
+        $user = User::where('username', $username)->firstOrFail();
         $me = $request->user();
 
         $me->follows()->detach($user);
-        return redirect("/$username");
     }
 
     public function notifications ($type, Request $request) {
@@ -58,9 +50,5 @@ class UsersController extends Controller
         }
 
         return $me->notifications->where('type', 'App\Notifications\MessageReceived');
-    }
-
-    private function findByUsername ($username) {
-        return User::where('username', $username)->firstOrFail();
     }
 }

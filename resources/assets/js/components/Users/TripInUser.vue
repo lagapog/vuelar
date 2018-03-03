@@ -4,15 +4,16 @@
     <div class="card-body">
         <h5 class="card-title">{{ trip.location }}</h5>
         <p class="card-text">
-            By <a :href="`/${trip.user.username}`">{{ trip.user.username }}</a>
+          {{ trip.content }}    
         </p>
         <a :href="`/trips/${trip.id}`" class="btn btn-primary">Read more</a>
     </div>
-</div>  
+  </div>  
 </template>
 <script>
-export default {
-  props: ['trip']
-}
+  export default {
+    name: 'vuTripInUser',
+    props: ['trip']
+  }
 </script>
 

@@ -18,6 +18,8 @@ Route::get('/auth/facebook', 'SocialAuthController@facebook');
 Route::get('/auth/facebook/callback', 'SocialAuthController@callback');
 Route::post('/auth/facebook/register', 'SocialAuthController@register');
 
+Route::get('/{any}', 'PagesController@index');
+
 Route::get('/trips', 'TripsController@search');
 Route::get('/trips/create', 'TripsController@create');
 Route::post('/trips/store', 'TripsController@store');
@@ -28,10 +30,5 @@ Route::match(['get', 'post'], '/conversation/{username}', 'ConversationsControll
 Route::post('/conversation/{conversation}/{user}', 'ConversationsController@sendMessage');
 
 Route::get('/api/notifications/{type}', 'UsersController@notifications');
-Route::get('/{username}/follows', 'UsersController@follows');
-Route::get('/{username}/followers', 'UsersController@followers');
-Route::post('/{username}/follow', 'UsersController@follow');
-Route::post('/{username}/unfollow', 'UsersController@unfollow');
-Route::get('/{username}', 'UsersController@show');
 
 

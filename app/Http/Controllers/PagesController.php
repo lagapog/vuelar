@@ -9,13 +9,6 @@ use Illuminate\Http\Request;
 class PagesController extends Controller
 {
     public function index () {
-        $trips = [];
-        if (Auth::check()) {
-            $trips = Trip::with('user')->paginate(9);
-        }
-        return view('home', [
-            'trips' => $trips
-        ]);
         return view('home');
     }
 }

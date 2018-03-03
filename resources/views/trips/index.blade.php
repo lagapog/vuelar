@@ -15,7 +15,7 @@
         <div class="row mt-4">
             @forelse($trips as $trip)
                 <div class="col-12 col-md-6 col-xl-4 mb-4">
-                    <trips :trip="{{ $trip }}" />
+                    <vu-trip :trip="{{ $trip }}" />
                 </div>
             @empty
                 <p>Trips no found</p>

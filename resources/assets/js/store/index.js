@@ -1,23 +1,32 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import tripsModule from './modules/trips'
+import usersModule from './modules/users'
+
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
-  state: {
-    user: 'Nada'
+  store: {
+    pageIsLoading: false
   },
   mutations: {
-    fetchUser (state, user) {
-      state.user = user
+    pageLoading(state) {
+      state.isLoading = true
+    },
+    pageLoaded(state) {
+      state.isLoading = false
     }
   },
-  actions: {
-    changeUser({ commit }) {
-      return axios.get('http://localhost:8000/api/user')
-        .then(response => commit('fetchUser', response.data))
-        .catch();
+  modules: {
+    trips: {
+      namespaced: true,
+      ...tripsModule
+    },
+    users: {
+      namespaced: true,
+      ...usersModule
     }
   }
 })

@@ -15,10 +15,13 @@ use App\User;
 |
 */
 
-Route::middleware('auth:api')->get('/users', function () {
-    return User::all();
-});
-
-Route::middleware('auth:api')->get('/trips', function() {
-    return Trip::with('user')->all();
+Route::group(['middleware' => ['auth:api']], function (){
+    // Trips
+    Route::get('/trips', 'TripsController@getAll');
+    // Users
+    Route::get('/me', 'UsersController@me');
+    Route::get('/users', 'UsersController@getAll');
+    Route::get('/users/{username}', 'UsersController@findByUsername');
+    Route::post('/users/{username}/follow', 'UsersController@follow');
+    Route::post('/users/{username}/unfollow', 'UsersController@unfollow');
 });
