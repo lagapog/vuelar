@@ -43,12 +43,12 @@ class UsersController extends Controller
         $me->follows()->detach($user);
     }
 
-    public function notifications ($type, Request $request) {
-        $me = $request->user();
-        if($type == "alerts") {
-            return $me->notifications->where('type', 'App\Notifications\UserFollowed');
-        }
+    // public function notifications ($type, Request $request) {
+    //     $me = $request->user();
+    //     if($type == "alerts") {
+    //         return $me->notifications->where('type', 'App\Notifications\UserFollowed');
+    //     }
 
-        return $me->notifications->where('type', 'App\Notifications\MessageReceived');
-    }
+    //     return $me->notifications->where('type', 'App\Notifications\MessageReceived');
+    // }
 }

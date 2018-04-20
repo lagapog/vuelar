@@ -35,7 +35,7 @@
                             <li><a class="nav-link" href="{{ route('login') }}">Login</a></li>
                             <li><a class="nav-link" href="{{ route('register') }}">Register</a></li>
                         @else
-                            <li class="nav-item dropdown mr-md-2">
+                            {{-- <li class="nav-item dropdown mr-md-2">
                                 <a href="#" class="nav-link" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="material-icons">notifications</i>
                                 </a>
@@ -46,7 +46,7 @@
                                     <i class="material-icons">forum</i>
                                 </a>
                                 <notifications :user="{{ Auth::user()->id }}" type="messages"></notifications>
-                            </li>
+                            </li> --}}
                             <img class="img-fluid rounded-circle d-none d-md-block ml-2" width="30" src="{{ Auth::user()->avatar }}">
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

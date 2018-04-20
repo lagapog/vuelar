@@ -11,11 +11,10 @@ class TripsController extends Controller
     public function getAll() {
         return Trip::with('user')->get();
     }
-    public function show (Trip $trip) {
-
-        return view('trips.show', [
-            'trip' => $trip
-        ]);
+    public function findById (Trip $trip) {
+        return Trip::with('user')
+            ->find($trip)
+            ->first();
     }
 
     public function create () {

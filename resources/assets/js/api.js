@@ -3,6 +3,14 @@ const baseUrl = 'http://localhost:8000'
 const trips = {
   getAll() {
     return `${baseUrl}/api/trips`
+  },
+  findById(trip) {
+    return `${baseUrl}/api/trips/${trip}`
+  }
+}
+const comments = {
+  getAll(trip) {
+    return `${baseUrl}/api/comments/${trip}`
   }
 }
 const users = {
@@ -25,5 +33,6 @@ const users = {
 
 export {
   trips,
+  comments,
   users
 }

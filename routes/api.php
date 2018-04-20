@@ -16,12 +16,15 @@ use App\User;
 */
 
 Route::group(['middleware' => ['auth:api']], function (){
-    // Trips
-    Route::get('/trips', 'TripsController@getAll');
     // Users
     Route::get('/me', 'UsersController@me');
     Route::get('/users', 'UsersController@getAll');
     Route::get('/users/{username}', 'UsersController@findByUsername');
     Route::post('/users/{username}/follow', 'UsersController@follow');
     Route::post('/users/{username}/unfollow', 'UsersController@unfollow');
+    // Trips
+    Route::get('/trips', 'TripsController@getAll');
+    Route::get('/trips/{trip}', 'TripsController@findById');
+    // Comments
+    Route::get('/comments/{trip}/', 'TripsController@comments');
 });

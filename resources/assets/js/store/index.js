@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import tripsModule from './modules/trips'
 import usersModule from './modules/users'
+import commentsModule from './modules/comments'
 
 
 Vue.use(Vuex)
@@ -27,6 +28,10 @@ const store = new Vuex.Store({
     users: {
       namespaced: true,
       ...usersModule
+    },
+    comments: {
+      namespaced: true,
+      ...commentsModule
     }
   }
 })
