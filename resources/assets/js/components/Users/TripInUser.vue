@@ -6,7 +6,7 @@
         <p class="card-text">
           {{ trip.content }}    
         </p>
-        <a :href="`/trips/${trip.id}`" class="btn btn-primary">Read more</a>
+        <router-link :href="`/trips/${trip.id}`" class="btn btn-primary">Read more</router-link>
     </div>
   </div>  
 </template>
