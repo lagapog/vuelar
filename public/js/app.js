@@ -1880,6 +1880,9 @@ var trips = {
   },
   findById: function findById(trip) {
     return baseUrl + '/api/trips/' + trip;
+  },
+  search: function search(query) {
+    return baseUrl + '/api/trips/search/' + query;
   }
 };
 var comments = {
@@ -55981,7 +55984,8 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
 var state = {
   trip: {},
   trips: [],
-  tripsAreLoading: false
+  tripsAreLoading: true,
+  tripIsLoading: true
 };
 var getters = {
   ownerTrip: function ownerTrip() {
@@ -55998,8 +56002,10 @@ var actions = {
   fetchTripById: function fetchTripById(_ref, trip) {
     var commit = _ref.commit;
 
+    commit('tripLoading');
     return axios.get(__WEBPACK_IMPORTED_MODULE_0__api__["b" /* trips */].findById(trip)).then(function (response) {
       commit('loadTripById', response.data);
+      commit('tripLoaded');
     }).catch();
   },
   fetchTrips: function fetchTrips(_ref2) {
@@ -56007,6 +56013,15 @@ var actions = {
 
     commit('tripsLoading');
     return axios.get(__WEBPACK_IMPORTED_MODULE_0__api__["b" /* trips */].getAll()).then(function (response) {
+      commit('loadTrips', response.data);
+      commit('tripsLoaded');
+    }).catch();
+  },
+  searchTrips: function searchTrips(_ref3, query) {
+    var commit = _ref3.commit;
+
+    commit('tripsLoading');
+    return axios.get(__WEBPACK_IMPORTED_MODULE_0__api__["b" /* trips */].search(query)).then(function (response) {
       commit('loadTrips', response.data);
       commit('tripsLoaded');
     }).catch();
@@ -56024,6 +56039,12 @@ var mutations = {
   },
   tripsLoaded: function tripsLoaded(state) {
     state.tripsAreLoading = false;
+  },
+  tripLoading: function tripLoading(state) {
+    state.tripIsLoading = true;
+  },
+  tripLoaded: function tripLoaded(state) {
+    state.tripIsLoading = false;
   }
 };
 
@@ -56046,6 +56067,7 @@ var state = {
   users: [],
   loggedUser: {},
   user: {},
+  userIsLoading: true,
   userIsFollow: '',
   userIsFollower: ''
 };
@@ -56101,9 +56123,11 @@ var actions = {
   fetchUserByUsername: function fetchUserByUsername(_ref2, username) {
     var commit = _ref2.commit;
 
+    commit('userLoading');
     return axios.get(__WEBPACK_IMPORTED_MODULE_0__api__["c" /* users */].findByUsername(username)).then(function (response) {
       commit('loadUserByUsername', response.data);
       commit('setUserIsFollow', response.data.isFollow);
+      commit('userLoaded');
     }).catch();
   },
   fetchLoggedUser: function fetchLoggedUser(_ref3) {
@@ -56117,14 +56141,14 @@ var actions = {
     var commit = _ref4.commit;
 
     commit('followUser');
-    return axios.post(__WEBPACK_IMPORTED_MODULE_0__api__["c" /* users */].followUser(username)).then().catch;
+    return axios.post(__WEBPACK_IMPORTED_MODULE_0__api__["c" /* users */].followUser(username)).then().catch();
   },
   unfollowUser: function unfollowUser(_ref5, username) {
     var commit = _ref5.commit,
         getters = _ref5.getters;
 
     commit('unfollowUser', getters);
-    return axios.post(__WEBPACK_IMPORTED_MODULE_0__api__["c" /* users */].unfollowUser(username)).then().catch;
+    return axios.post(__WEBPACK_IMPORTED_MODULE_0__api__["c" /* users */].unfollowUser(username)).then().catch();
   }
 };
 var mutations = {
@@ -56152,6 +56176,12 @@ var mutations = {
     state.user.followers.splice(myIndexOfYourFollowers, 1);
     state.loggedUser.follows.splice(userIndexOfMyFollows, 1);
     state.userIsFollow = false;
+  },
+  userLoading: function userLoading(state) {
+    state.userIsLoading = true;
+  },
+  userLoaded: function userLoaded(state) {
+    state.userIsLoading = false;
   }
 };
 
@@ -56214,11 +56244,14 @@ var mutations = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_pages_User_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_pages_User_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_pages_Trip_vue__ = __webpack_require__(87);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_pages_Trip_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_pages_Trip_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_pages_CreateTrip_vue__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_pages_CreateTrip_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_pages_CreateTrip_vue__);
 
 
 
 
-var routes = [{ path: '/', component: __WEBPACK_IMPORTED_MODULE_0__components_pages_Home_vue___default.a, name: 'home' }, { path: '/trips/:trip', component: __WEBPACK_IMPORTED_MODULE_2__components_pages_Trip_vue___default.a, name: 'trip' }, { path: '/:username', component: __WEBPACK_IMPORTED_MODULE_1__components_pages_User_vue___default.a, name: 'user' }];
+
+var routes = [{ path: '/', component: __WEBPACK_IMPORTED_MODULE_0__components_pages_Home_vue___default.a, name: 'home' }, { path: '/trips/create', component: __WEBPACK_IMPORTED_MODULE_3__components_pages_CreateTrip_vue___default.a, name: 'createTrip' }, { path: '/trips/:trip', component: __WEBPACK_IMPORTED_MODULE_2__components_pages_Trip_vue___default.a, name: 'trip' }, { path: '/:username', component: __WEBPACK_IMPORTED_MODULE_1__components_pages_User_vue___default.a, name: 'user' }];
 
 /* harmony default export */ __webpack_exports__["a"] = (routes);
 
@@ -56304,9 +56337,19 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      query: ''
+    };
+  },
+
   components: { vuLoadingTrip: __WEBPACK_IMPORTED_MODULE_0__Trips_LoadingTrip_vue___default.a, vuTripsGrid: __WEBPACK_IMPORTED_MODULE_1__Trips_TripsGrid_vue___default.a },
   computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["d" /* mapState */])('trips', ['trips', 'tripsAreLoading']), Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["c" /* mapGetters */])('trips', ['emptyTrips'])),
-  methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapActions */])('trips', ['fetchTrips']), Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapActions */])('users', ['fetchLoggedUser'])),
+  methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapActions */])('trips', ['fetchTrips', 'searchTrips']), Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapActions */])('users', ['fetchLoggedUser']), {
+    searching: function searching() {
+      this.searchTrips(this.query);
+    }
+  }),
   mounted: function mounted() {
     this.fetchTrips();
     this.fetchLoggedUser();
@@ -56741,54 +56784,66 @@ var render = function() {
     "div",
     { staticClass: "container" },
     [
-      _vm._m(0),
-      _vm._v(" "),
-      _vm.tripsAreLoading ? _c("vu-loading-trip") : _c("vu-trips-grid")
-    ],
-    1
-  )
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row justify-content-center" }, [
-      _c(
-        "form",
-        {
-          staticClass: "col-12 col-md-10 col-xl-8",
-          attrs: { action: "/trips" }
-        },
-        [
+      _c("div", { staticClass: "row justify-content-center" }, [
+        _c("div", { staticClass: "col-12 col-md-10 col-xl-8" }, [
           _c("div", { staticClass: "input-group" }, [
             _c("div", { staticClass: "input-group-prepend" }, [
               _c(
                 "button",
                 {
                   staticClass: "btn btn-outline-primary",
-                  attrs: { type: "submit" }
+                  attrs: { type: "button" },
+                  on: { click: _vm.searching }
                 },
                 [_vm._v("Search")]
               )
             ]),
             _vm._v(" "),
             _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.query,
+                  expression: "query"
+                }
+              ],
               staticClass: "form-control",
               attrs: {
-                name: "query",
                 type: "text",
                 placeholder: "An awesome trip",
                 "aria-label": "Search",
                 "aria-describedby": "basic-addon2"
+              },
+              domProps: { value: _vm.query },
+              on: {
+                keyup: function($event) {
+                  if (
+                    !("button" in $event) &&
+                    _vm._k($event.keyCode, "enter", 13, $event.key)
+                  ) {
+                    return null
+                  }
+                  _vm.searching($event)
+                },
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.query = $event.target.value
+                }
               }
             })
           ])
-        ]
-      )
-    ])
-  }
-]
+        ])
+      ]),
+      _vm._v(" "),
+      _vm.tripsAreLoading ? _c("vu-loading-trip") : _c("vu-trips-grid")
+    ],
+    1
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -56965,7 +57020,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     vuFollows: __WEBPACK_IMPORTED_MODULE_3__Users_Follows_vue___default.a,
     vuFollowers: __WEBPACK_IMPORTED_MODULE_4__Users_Followers_vue___default.a
   },
-  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_5_vuex__["d" /* mapState */])('users', ['user', 'loggedUser', 'userIsFollow']), Object(__WEBPACK_IMPORTED_MODULE_5_vuex__["c" /* mapGetters */])('users', ['userHasTrips', 'numberOfFollows', 'numberOfFollowers', 'itIsMe']), {
+  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_5_vuex__["d" /* mapState */])('users', ['user', 'loggedUser', 'userIsFollow', 'userIsLoading']), Object(__WEBPACK_IMPORTED_MODULE_5_vuex__["c" /* mapGetters */])('users', ['userHasTrips', 'numberOfFollows', 'numberOfFollowers', 'itIsMe']), {
     view: function view() {
       if (this.userIsFollow) {
         return 'vuUnfollowButton';
@@ -56980,7 +57035,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     };
   },
 
-  methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_5_vuex__["b" /* mapActions */])('users', ['fetchUserByUsername']), {
+  methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_5_vuex__["b" /* mapActions */])('users', ['fetchUserByUsername', 'fetchLoggedUser']), {
     viewFollows: function viewFollows() {
       this.showFollows = !this.showFollows;
       this.showFollowers = false;
@@ -56998,6 +57053,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   beforeRouteUpdate: function beforeRouteUpdate(to, from, next) {
     this.fetchUserByUsername(to.params.username);
     next();
+  },
+  mounted: function mounted() {
+    this.fetchLoggedUser();
   }
 });
 
@@ -57099,7 +57157,7 @@ var render = function() {
           "router-link",
           {
             staticClass: "btn btn-primary",
-            attrs: { href: "/trips/" + _vm.trip.id }
+            attrs: { to: "/trips/" + _vm.trip.id }
           },
           [_vm._v("Read more")]
         )
@@ -57649,146 +57707,151 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "container" },
-    [
-      _c("div", { staticClass: "row my-4 justify-content-center" }, [
-        _c(
-          "div",
-          {
-            staticClass:
-              "col-6 col-md-3 d-flex justify-content-center align-items-center mb-2"
-          },
-          [
-            _c("img", {
-              staticClass: "img-fluid rounded-circle",
-              staticStyle: { height: "120px" },
-              attrs: { src: _vm.user.avatar }
-            })
-          ]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-12 col-md-6" }, [
-          _c("div", { staticClass: "card border-primary" }, [
-            _c("div", { staticClass: "card-body" }, [
-              !_vm.itIsMe
-                ? _c(
-                    "div",
-                    { staticClass: "row mb-3 justify-content-around" },
-                    [
-                      _c(
-                        "transition",
-                        { attrs: { name: "follow-slide", mode: "out-in" } },
-                        [_c(_vm.view, { tag: "component" })],
+  return !_vm.userIsLoading
+    ? _c(
+        "div",
+        { staticClass: "container" },
+        [
+          _c("div", { staticClass: "row my-4 justify-content-center" }, [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "col-6 col-md-3 d-flex justify-content-center align-items-center mb-2"
+              },
+              [
+                _c("img", {
+                  staticClass: "img-fluid rounded-circle",
+                  staticStyle: { height: "120px" },
+                  attrs: { src: _vm.user.avatar }
+                })
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-12 col-md-6" }, [
+              _c("div", { staticClass: "card border-primary" }, [
+                _c("div", { staticClass: "card-body" }, [
+                  !_vm.itIsMe
+                    ? _c(
+                        "div",
+                        { staticClass: "row mb-3 justify-content-around" },
+                        [
+                          _c(
+                            "transition",
+                            { attrs: { name: "follow-slide", mode: "out-in" } },
+                            [_c(_vm.view, { tag: "component" })],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-outline-primary",
+                              staticStyle: { width: "6rem" }
+                            },
+                            [_vm._v("Talk")]
+                          )
+                        ],
                         1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-outline-primary",
-                          staticStyle: { width: "6rem" }
-                        },
-                        [_vm._v("Talk")]
                       )
-                    ],
-                    1
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _c("h5", { staticClass: "card-title" }, [
-                _vm._v("Name: " + _vm._s(_vm.user.name))
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "card-text" }, [
-                _vm._v("Username: " + _vm._s(_vm.user.username))
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "card-text" }, [
-                _vm._v("Email: " + _vm._s(_vm.user.email))
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row justify-content-around" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    on: { click: _vm.viewFollows }
-                  },
-                  [
-                    _vm._v(
-                      "\n                " +
-                        _vm._s(_vm.numberOfFollows) +
-                        " Follows\n              "
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("h5", { staticClass: "card-title" }, [
+                    _vm._v("Name: " + _vm._s(_vm.user.name))
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "card-text" }, [
+                    _vm._v("Username: " + _vm._s(_vm.user.username))
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "card-text" }, [
+                    _vm._v("Email: " + _vm._s(_vm.user.email))
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row justify-content-around" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        on: { click: _vm.viewFollows }
+                      },
+                      [
+                        _vm._v(
+                          "\n                " +
+                            _vm._s(_vm.numberOfFollows) +
+                            " Follows\n              "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        on: { click: _vm.viewFollowers }
+                      },
+                      [
+                        _vm._v(
+                          "\n                " +
+                            _vm._s(_vm.numberOfFollowers) +
+                            " Followers\n              "
+                        )
+                      ]
                     )
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary",
-                    on: { click: _vm.viewFollowers }
-                  },
-                  [
-                    _vm._v(
-                      "\n                " +
-                        _vm._s(_vm.numberOfFollowers) +
-                        " Followers\n              "
-                    )
-                  ]
-                )
+                  ])
+                ])
               ])
             ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("vu-follows", {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.showFollows,
-            expression: "showFollows"
-          }
-        ]
-      }),
-      _vm._v(" "),
-      _c("vu-followers", {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.showFollowers,
-            expression: "showFollowers"
-          }
-        ]
-      }),
-      _vm._v(" "),
-      _c("h2", [_vm._v("Trips of " + _vm._s(_vm.user.username))]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "row mt-2" },
-        [
-          !_vm.userHasTrips ? _c("p", [_vm._v("No trips yet")]) : _vm._e(),
+          ]),
           _vm._v(" "),
-          _vm._l(_vm.user.trips, function(trip) {
-            return _c(
-              "div",
-              { key: trip.id, staticClass: "col-12 col-md-6 col-xl-4 mb-4" },
-              [_c("vu-trip-in-user", { attrs: { trip: trip } })],
-              1
-            )
-          })
+          _c("vu-follows", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.showFollows,
+                expression: "showFollows"
+              }
+            ]
+          }),
+          _vm._v(" "),
+          _c("vu-followers", {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.showFollowers,
+                expression: "showFollowers"
+              }
+            ]
+          }),
+          _vm._v(" "),
+          _c("h2", [_vm._v("Trips of " + _vm._s(_vm.user.username))]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "row mt-2" },
+            [
+              !_vm.userHasTrips ? _c("p", [_vm._v("No trips yet")]) : _vm._e(),
+              _vm._v(" "),
+              _vm._l(_vm.user.trips, function(trip) {
+                return _c(
+                  "div",
+                  {
+                    key: trip.id,
+                    staticClass: "col-12 col-md-6 col-xl-4 mb-4"
+                  },
+                  [_c("vu-trip-in-user", { attrs: { trip: trip } })],
+                  1
+                )
+              })
+            ],
+            2
+          )
         ],
-        2
+        1
       )
-    ],
-    1
-  )
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -57927,12 +57990,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {},
-  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapState */])('trips', ['trip']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapGetters */])('trips', ['ownerTrip'])),
+  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapState */])('trips', ['trip', 'tripIsLoading']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapGetters */])('trips', ['ownerTrip'])),
   data: function data() {
     return {};
   },
 
-  methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])('trips', ['fetchTripById'])),
+  methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])('trips', ['fetchTripById']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])('users', ['fetchLoggedUser'])),
   beforeRouteEnter: function beforeRouteEnter(to, from, next) {
     next(function (vm) {
       vm.fetchTripById(to.params.trip);
@@ -57941,6 +58004,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   beforeRouteUpdate: function beforeRouteUpdate(to, from, next) {
     this.fetchTripById(to.params.trip);
     next();
+  },
+  mounted: function mounted() {
+    this.fetchLoggedUser();
   }
 });
 
@@ -57952,58 +58018,62 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "container" },
-    [
-      _c(
+  return !_vm.tripIsLoading
+    ? _c(
         "div",
-        { staticClass: "row mt-4 justify-content-center align-items-center" },
+        { staticClass: "container" },
         [
-          _c("div", { staticClass: "col-12 col-md-6 col-xl-5" }, [
-            _c("img", {
-              staticClass: "img-fluid",
-              attrs: { src: _vm.trip.image, alt: "Card image cap" }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-12 col-md-6 col-xl-7" }, [
-            _c("div", { staticClass: "card" }, [
-              _c("div", { staticClass: "card-body" }, [
-                _c("h5", { staticClass: "card-title" }, [
-                  _vm._v(_vm._s(_vm.trip.location))
-                ]),
-                _vm._v(" "),
-                _c("p", { staticClass: "card-text" }, [
-                  _vm._v(_vm._s(_vm.trip.content))
-                ]),
-                _vm._v(" "),
-                _c(
-                  "p",
-                  { staticClass: "card-text" },
-                  [
-                    _vm._v("\n            Created by\n            "),
+          _c(
+            "div",
+            {
+              staticClass: "row mt-4 justify-content-center align-items-center"
+            },
+            [
+              _c("div", { staticClass: "col-12 col-md-6 col-xl-5" }, [
+                _c("img", {
+                  staticClass: "img-fluid",
+                  attrs: { src: _vm.trip.image, alt: "Card image cap" }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-12 col-md-6 col-xl-7" }, [
+                _c("div", { staticClass: "card" }, [
+                  _c("div", { staticClass: "card-body" }, [
+                    _c("h5", { staticClass: "card-title" }, [
+                      _vm._v(_vm._s(_vm.trip.location))
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "card-text" }, [
+                      _vm._v(_vm._s(_vm.trip.content))
+                    ]),
+                    _vm._v(" "),
                     _c(
-                      "router-link",
-                      {
-                        staticClass: "card-link",
-                        attrs: { to: "/" + _vm.ownerTrip }
-                      },
-                      [_vm._v(_vm._s(_vm.ownerTrip))]
+                      "p",
+                      { staticClass: "card-text" },
+                      [
+                        _vm._v("\n            Created by\n            "),
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "card-link",
+                            attrs: { to: "/" + _vm.ownerTrip }
+                          },
+                          [_vm._v(_vm._s(_vm.ownerTrip))]
+                        )
+                      ],
+                      1
                     )
-                  ],
-                  1
-                )
+                  ])
+                ])
               ])
-            ])
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c("comments")
-    ],
-    1
-  )
+            ]
+          ),
+          _vm._v(" "),
+          _c("comments")
+        ],
+        1
+      )
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -58480,6 +58550,211 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 106 */,
+/* 107 */,
+/* 108 */,
+/* 109 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(110)
+}
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(112)
+/* template */
+var __vue_template__ = __webpack_require__(113)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/pages/CreateTrip.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-576292ba", Component.options)
+  } else {
+    hotAPI.reload("data-v-576292ba", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 110 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(111);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(5)("affa2fc6", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-576292ba\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./CreateTrip.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-576292ba\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./CreateTrip.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 111 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(4)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 112 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/***/ }),
+/* 113 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm._m(0)
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "container" }, [
+      _c("div", { staticClass: "row justify-content-center" }, [
+        _c("div", { staticClass: "col-12 col-md-6 col-xl-4" }, [
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "location" } }, [_vm._v("Location")]),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "form-control",
+              attrs: {
+                type: "text",
+                name: "location",
+                id: "location",
+                placeholder: "Your new trip"
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "content" } }, [_vm._v("Content")]),
+            _vm._v(" "),
+            _c("textarea", {
+              staticClass: "form-control",
+              attrs: { id: "content", name: "content", rows: "5" }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { attrs: { for: "image" } }, [
+              _vm._v("Image - Use a picture to promove your trip")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "form-control-file",
+              attrs: { type: "file", id: "image", name: "image" }
+            })
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+            [_vm._v("Create")]
+          )
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-576292ba", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

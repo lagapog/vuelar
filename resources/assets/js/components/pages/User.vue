@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="!userIsLoading">
     <div class="row my-4 justify-content-center">
       <div class="col-6 col-md-3 d-flex justify-content-center align-items-center mb-2">
         <img class="img-fluid rounded-circle" style="height: 120px" :src="user.avatar">
@@ -56,7 +56,12 @@
       vuFollowers
     },
     computed: {
-      ...mapState('users', ['user', 'loggedUser', 'userIsFollow']),
+      ...mapState('users', [
+        'user',
+        'loggedUser',
+        'userIsFollow',
+        'userIsLoading'
+      ]),
       ...mapGetters('users', [
         'userHasTrips',
         'numberOfFollows',
@@ -75,7 +80,7 @@
       }
     },
     methods: {
-      ...mapActions('users', ['fetchUserByUsername']),
+      ...mapActions('users', ['fetchUserByUsername', 'fetchLoggedUser']),
       viewFollows() {
         this.showFollows = !this.showFollows
         this.showFollowers = false
@@ -94,6 +99,9 @@
       this.fetchUserByUsername(to.params.username)
       next()
     },
+    mounted() {
+      this.fetchLoggedUser()
+    }
   }
 </script>
 <style lang="scss" scoped>

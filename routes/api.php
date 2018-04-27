@@ -24,6 +24,8 @@ Route::group(['middleware' => ['auth:api']], function (){
     Route::post('/users/{username}/unfollow', 'UsersController@unfollow');
     // Trips
     Route::get('/trips', 'TripsController@getAll');
+    Route::post('/trips/create', 'TripsController@create');
+    Route::get('/trips/search/{query}', 'TripsController@search');
     Route::get('/trips/{trip}', 'TripsController@findById');
     // Comments
     Route::get('/comments/{trip}/', 'TripsController@comments');

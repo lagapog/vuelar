@@ -4,6 +4,7 @@ const state = {
   users: [],
   loggedUser: {},
   user: {},
+  userIsLoading: true,
   userIsFollow: '',
   userIsFollower: ''
 }
@@ -55,10 +56,12 @@ const actions = {
       .catch()
   },
   fetchUserByUsername({ commit }, username) {
+    commit('userLoading')
     return axios.get(users.findByUsername(username))
       .then(response => {
         commit('loadUserByUsername', response.data)
         commit('setUserIsFollow', response.data.isFollow)
+        commit('userLoaded')
       })
       .catch()
   },
@@ -69,11 +72,15 @@ const actions = {
   },
   followUser({commit}, username) {
     commit('followUser')
-    return axios.post(users.followUser(username)).then().catch
+    return axios.post(users.followUser(username))
+    .then()
+    .catch()
   },
   unfollowUser({commit, getters}, username) {
     commit('unfollowUser', getters)
-    return axios.post(users.unfollowUser(username)).then().catch
+    return axios.post(users.unfollowUser(username))
+    .then()
+    .catch()
   }
 }
 const mutations = {
@@ -98,6 +105,12 @@ const mutations = {
     state.user.followers.splice(myIndexOfYourFollowers, 1)
     state.loggedUser.follows.splice(userIndexOfMyFollows, 1)
     state.userIsFollow = false
+  },
+  userLoading (state) {
+    state.userIsLoading = true
+  },
+  userLoaded (state) {
+    state.userIsLoading = false
   }
 }
 

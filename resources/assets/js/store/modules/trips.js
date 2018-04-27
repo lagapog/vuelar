@@ -3,7 +3,8 @@ import { trips } from '../../api'
 const state = {
   trip: {},
   trips: [],
-  tripsAreLoading: false,
+  tripsAreLoading: true,
+  tripIsLoading: true
 }
 const getters = {
   ownerTrip() {
@@ -18,15 +19,26 @@ const getters = {
 }
 const actions = {
   fetchTripById({ commit }, trip) {
+    commit('tripLoading')
     return axios.get(trips.findById(trip))
       .then(response => {
         commit('loadTripById', response.data)
+        commit('tripLoaded')
       })
       .catch()
   },
   fetchTrips({ commit }) {
     commit('tripsLoading')
     return axios.get(trips.getAll())
+      .then(response => {
+        commit('loadTrips', response.data)
+        commit('tripsLoaded')
+      })
+      .catch()
+  },
+  searchTrips({ commit }, query) {
+    commit('tripsLoading')
+    return axios.get(trips.search(query))
       .then(response => {
         commit('loadTrips', response.data)
         commit('tripsLoaded')
@@ -46,6 +58,12 @@ const mutations = {
   },
   tripsLoaded (state) {
     state.tripsAreLoading = false
+  },
+  tripLoading (state) {
+    state.tripIsLoading = true
+  },
+  tripLoaded (state) {
+    state.tripIsLoading = false
   }
 }
 

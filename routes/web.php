@@ -20,12 +20,6 @@ Route::post('/auth/facebook/register', 'SocialAuthController@register');
 Route::get('/{any}', 'PagesController@index');
 Route::get('/trips/{any}', 'PagesController@index');
 
-Route::get('/trips', 'TripsController@search');
-Route::get('/trips/create', 'TripsController@create');
-Route::post('/trips/store', 'TripsController@store');
-
-
-
 Route::match(['get', 'post'], '/conversation/{username}', 'ConversationsController@show');
 Route::post('/conversation/{conversation}/{user}', 'ConversationsController@sendMessage');
 

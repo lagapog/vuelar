@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="!tripIsLoading">
     <div class="row mt-4 justify-content-center align-items-center">
       <div class="col-12 col-md-6 col-xl-5">
         <img class="img-fluid" :src="trip.image" alt="Card image cap">
@@ -26,14 +26,15 @@
   export default {
     components: {},
     computed: {
-      ...mapState('trips', ['trip']),
+      ...mapState('trips', ['trip', 'tripIsLoading']),
       ...mapGetters('trips', ['ownerTrip'])
     },
     data() {
       return {}
     },
     methods: {
-      ...mapActions('trips', ['fetchTripById'])
+      ...mapActions('trips', ['fetchTripById']),
+      ...mapActions('users', ['fetchLoggedUser'])
     },
     beforeRouteEnter (to, from, next) {
       next(vm => {
@@ -44,6 +45,9 @@
       this.fetchTripById(to.params.trip)
       next()
     },
+    mounted() {
+      this.fetchLoggedUser()
+    }
   }
 </script>
 <style lang="scss" scoped>

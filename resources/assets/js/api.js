@@ -6,6 +6,9 @@ const trips = {
   },
   findById(trip) {
     return `${baseUrl}/api/trips/${trip}`
+  },
+  search(query) {
+    return `${baseUrl}/api/trips/search/${query}`
   }
 }
 const comments = {

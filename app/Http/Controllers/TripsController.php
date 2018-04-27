@@ -12,16 +12,11 @@ class TripsController extends Controller
         return Trip::with('user')->get();
     }
     public function findById (Trip $trip) {
-        return Trip::with('user')
-            ->find($trip)
-            ->first();
+        $trip->load('user');
+        return $trip;
     }
 
-    public function create () {
-        return view('trips.create');
-    }
-
-    public function store (CreateTripRequest $request) {
+    public function create (CreateTripRequest $request) {
         $user = $request->user();
         $image = $request->file('image');
 
@@ -35,14 +30,9 @@ class TripsController extends Controller
 
         return redirect('/trips/'.$trip->id);
     }
-    public function search (Request $request) {
-        $query = $request->input('query');
-
+    public function search ($query) {
         $trips = Trip::with('user')->where('location', 'LIKE', "%$query%")->get();
-
-        return view('trips.index', [
-            'trips' => $trips,
-        ]);
+        return $trips;
     }
 
     public function comments (Trip $trip) {

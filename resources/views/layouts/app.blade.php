@@ -18,9 +18,9 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <router-link class="navbar-brand" to="/">
                     Vuelar
-                </a>
+                </router-link>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -53,8 +53,8 @@
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href={{ '/'.auth()->user()->username }}>My profile</a>
-                                    <a class="dropdown-item" href="/trips/create">New Trip</a>
+                                    <router-link class="dropdown-item" to="{{'/'.auth()->user()->username}}">My profile</router-link>
+                                    <router-link class="dropdown-item" to="/trips/create">New Trip</router-link>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
