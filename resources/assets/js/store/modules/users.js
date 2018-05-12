@@ -81,6 +81,12 @@ const actions = {
     return axios.post(users.unfollowUser(username))
     .then()
     .catch()
+  },
+  logoutUser({commit}) {
+    console.log('click')
+    return axios.post('http://localhost/api/logout')
+    .then(response => console.log(repsonse))
+    .catch()
   }
 }
 const mutations = {
