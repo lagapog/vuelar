@@ -12,10 +12,10 @@
 */
 
 Route::get('/', 'PagesController@index');
-Auth::routes();
-Route::get('/auth/facebook', 'SocialAuthController@facebook');
-Route::get('/auth/facebook/callback', 'SocialAuthController@callback');
-Route::post('/auth/facebook/register', 'SocialAuthController@register');
+// Auth::routes();
+// Route::get('/auth/facebook', 'SocialAuthController@facebook');
+// Route::get('/auth/facebook/callback', 'SocialAuthController@callback');
+// Route::post('/auth/facebook/register', 'SocialAuthController@register');
 
 Route::get('/{any}', 'PagesController@index');
 Route::get('/trips/{any}', 'PagesController@index');

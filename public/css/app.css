@@ -9994,14 +9994,36 @@ a.text-dark:focus {
   }
 }
 
-.navbar-laravel {
-  background-color: #fff;
-  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+.fas.fa-spinner.loading {
+  -webkit-animation: load 1.5s linear infinite;
+          animation: load 1.5s linear infinite;
 }
 
-.navbar-brand {
-  font-family: "Caveat", cursive;
-  font-size: 1.8rem;
+.link {
+  cursor: pointer;
+}
+
+@-webkit-keyframes load {
+  0% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes load {
+  0% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
 }
 

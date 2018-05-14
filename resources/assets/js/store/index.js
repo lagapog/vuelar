@@ -4,6 +4,7 @@ import axios from 'axios'
 import tripsModule from './modules/trips'
 import usersModule from './modules/users'
 import commentsModule from './modules/comments'
+import authenticationModule from './modules/authentication'
 
 
 Vue.use(Vuex)
@@ -32,6 +33,10 @@ const store = new Vuex.Store({
     comments: {
       namespaced: true,
       ...commentsModule
+    },
+    authentication: {
+      namespaced: true,
+      ...authenticationModule
     }
   }
 })

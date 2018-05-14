@@ -17,6 +17,9 @@ const comments = {
   }
 }
 const users = {
+  logout() {
+    return `${baseUrl}/api/logout`
+  },
   getLoggedUser() {
     return `${baseUrl}/api/me`
   },
@@ -33,9 +36,21 @@ const users = {
     return `${baseUrl}/api/users/${username}/unfollow`
   }
 }
+const authentication = {
+  login() {
+    return `${baseUrl}/api/login`
+  },
+  register() {
+    return `${baseUrl}/api/register`
+  },
+  logout() {
+    return `${baseUrl}/api/logout`
+  }
+}
 
 export {
   trips,
   comments,
-  users
+  users,
+  authentication
 }

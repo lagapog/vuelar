@@ -7,12 +7,15 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
-
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+.fas.fa-spinner.loading {
+  animation: load 1.5s linear infinite;
 }
-.navbar-brand {
-  font-family: $font-family-cursive;
-  font-size: 1.8rem;
+//utils
+.link {
+  cursor: pointer;
+}
+//animation
+@keyframes load {
+  0%{transform: rotate(0);}
+  100%{transform: rotate(360deg);}
 }

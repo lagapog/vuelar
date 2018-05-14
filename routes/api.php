@@ -14,8 +14,11 @@ use App\User;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::group(['middleware' => ['auth:api']], function (){
+Route::post('/register', 'AuthController@register');
+Route::post('/login', 'AuthController@login');
+Route::middleware('auth:api')->group(function () {
+    //Authentication
+    Route::post('/logout', 'AuthController@logout');
     // Users
     Route::get('/me', 'UsersController@me');
     Route::get('/users', 'UsersController@getAll');

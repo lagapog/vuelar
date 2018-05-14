@@ -32,7 +32,7 @@
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <router-link class="dropdown-item" :to="`/${loggedUser.username}`">My profile</router-link>
                 <router-link class="dropdown-item" to="/trips/create">New Trip</router-link>
-                <a class="dropdown-item" @click="logoutUser">Logout</a>
+                <a class="dropdown-item" @click="logout">Logout</a>
                 <!-- <form id="logout-form" action="{{ route('logout') }}" method="POST">
                 </form> -->
             </div>
@@ -43,17 +43,35 @@
   </nav>
 </template>
 <script>
-import { mapState, mapActions } from 'vuex'
+import { users } from '../../api'
+import { mapState } from 'vuex'
 
 export default {
   computed: {
     ...mapState('users', ['loggedUser'])
   },
   methods: {
-    ...mapActions('users', ['logoutUser'])
+    logout() {
+      return axios.post(users.logout())
+        .then(({data}) => {
+          auth.logout();
+          this.$router.push('/');
+        })
+        .catch(({response}) => {                    
+          console.log(response.data.message);
+        })
+    }
   }
 }
 </script>
 <style lang="scss" scoped>
-
+@import "../../../sass/_variables.scss";
+.navbar-laravel {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+.navbar-brand {
+  font-family: $font-family-cursive;
+  font-size: 1.8rem;
+}
 </style>
