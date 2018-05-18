@@ -1772,7 +1772,7 @@ module.exports = g;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return trips; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return comments; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return users; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return authentication; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return auth; });
 var baseUrl = 'http://localhost:8000';
 
 var trips = {
@@ -1792,9 +1792,6 @@ var comments = {
   }
 };
 var users = {
-  logout: function logout() {
-    return baseUrl + '/api/logout';
-  },
   getLoggedUser: function getLoggedUser() {
     return baseUrl + '/api/me';
   },
@@ -1811,7 +1808,7 @@ var users = {
     return baseUrl + '/api/users/' + username + '/unfollow';
   }
 };
-var authentication = {
+var auth = {
   login: function login() {
     return baseUrl + '/api/login';
   },
@@ -26037,10 +26034,9 @@ module.exports = __webpack_require__(129);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__auth_js__ = __webpack_require__(46);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__routes__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_router__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__store__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__routes__ = __webpack_require__(53);
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -26051,7 +26047,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 __webpack_require__(20);
 window.Vue = __webpack_require__(17);
 
-window.auth = __WEBPACK_IMPORTED_MODULE_0__auth_js__["a" /* default */];
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -26061,9 +26056,9 @@ window.auth = __WEBPACK_IMPORTED_MODULE_0__auth_js__["a" /* default */];
 
 
 
-var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
+var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
   mode: 'history',
-  routes: __WEBPACK_IMPORTED_MODULE_3__routes__["a" /* default */],
+  routes: __WEBPACK_IMPORTED_MODULE_2__routes__["a" /* default */],
   scrollBehavior: function scrollBehavior(to, from, savedPosition) {
     return { x: 0, y: 0 };
   }
@@ -26072,7 +26067,7 @@ router.beforeEach(function (to, from, next) {
   if (to.matched.some(function (record) {
     return record.meta.middlewareAuth;
   })) {
-    if (!__WEBPACK_IMPORTED_MODULE_0__auth_js__["a" /* default */].check()) {
+    if (!__WEBPACK_IMPORTED_MODULE_1__store__["a" /* default */].state.auth.token && !__WEBPACK_IMPORTED_MODULE_1__store__["a" /* default */].state.auth.user) {
       next({
         path: '/'
       });
@@ -26081,15 +26076,14 @@ router.beforeEach(function (to, from, next) {
   }
   next();
 });
-Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]);
-window.Event = new Vue();
+Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
 Vue.component('app', __webpack_require__(99));
 Vue.component('comments', __webpack_require__(123));
 Vue.component('notifications', __webpack_require__(126));
 
 var app = new Vue({
   el: '#app',
-  store: __WEBPACK_IMPORTED_MODULE_2__store__["a" /* default */],
+  store: __WEBPACK_IMPORTED_MODULE_1__store__["a" /* default */],
   router: router
 });
 
@@ -53322,60 +53316,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(12)))
 
 /***/ }),
-/* 46 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Auth = function () {
-  function Auth() {
-    _classCallCheck(this, Auth);
-
-    this.token = window.localStorage.getItem('token');
-    this.user = window.localStorage.getItem('user');
-  }
-
-  _createClass(Auth, [{
-    key: 'login',
-    value: function login(token, user) {
-      window.localStorage.setItem('token', token);
-      window.localStorage.setItem('user', JSON.stringify(user));
-      this.token = token;
-      this.user = user;
-      this.BearerAuth();
-
-      Event.$emit('userLoggedIn');
-    }
-  }, {
-    key: 'logout',
-    value: function logout() {
-      window.localStorage.removeItem('token');
-      window.localStorage.removeItem('user');
-      this.token = null;
-      this.user = null;
-      Event.$emit('userLoggedOut');
-    }
-  }, {
-    key: 'BearerAuth',
-    value: function BearerAuth() {
-      axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.token;
-    }
-  }, {
-    key: 'check',
-    value: function check() {
-      return !!this.token;
-    }
-  }]);
-
-  return Auth;
-}();
-
-/* harmony default export */ __webpack_exports__["a"] = (new Auth());
-
-/***/ }),
+/* 46 */,
 /* 47 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -56018,7 +55959,7 @@ if (inBrowser && window.Vue) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_trips__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modules_users__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_comments__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__modules_authentication__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__modules_auth__ = __webpack_require__(133);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 
@@ -56053,9 +55994,9 @@ var store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     comments: _extends({
       namespaced: true
     }, __WEBPACK_IMPORTED_MODULE_5__modules_comments__["a" /* default */]),
-    authentication: _extends({
+    auth: _extends({
       namespaced: true
-    }, __WEBPACK_IMPORTED_MODULE_6__modules_authentication__["a" /* default */])
+    }, __WEBPACK_IMPORTED_MODULE_6__modules_auth__["a" /* default */])
   }
 });
 
@@ -56322,70 +56263,7 @@ var mutations = {
 });
 
 /***/ }),
-/* 52 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__api__ = __webpack_require__(6);
-
-
-var state = {
-  authView: 'vu-login',
-  messageError: '',
-  logging: false,
-  requestData: {}
-};
-var getters = {};
-var actions = {
-  login: function login(_ref, data) {
-    var commit = _ref.commit,
-        state = _ref.state;
-
-    commit('beforeLogin');
-    commit('loginRequestData', data);
-    return axios.post(__WEBPACK_IMPORTED_MODULE_0__api__["a" /* authentication */].login(), state.requestData).then(function (_ref2) {
-      var data = _ref2.data;
-
-      auth.login(data.token, data.user);
-      commit('afterLogin');
-    }).catch(function (_ref3) {
-      var response = _ref3.response;
-
-      commit('afterLogin');
-      commit('showMessageError', response.data.message);
-    });
-  }
-};
-var mutations = {
-  switchAuthView: function switchAuthView(state) {
-    if (state.authView == 'vu-login') state.authView = 'vu-register';else state.authView = 'vu-login';
-  },
-  beforeLogin: function beforeLogin(state) {
-    state.logging = true;
-    state.messageError = '';
-  },
-  afterLogin: function afterLogin(state) {
-    state.logging = false;
-  },
-  showMessageError: function showMessageError(state, error) {
-    state.messageError = error;
-  },
-  loginRequestData: function loginRequestData(state, data) {
-    state.requestData = data;
-  },
-  clearRequestData: function clearRequestData(state) {
-    state.requestData = {};
-  }
-};
-
-/* harmony default export */ __webpack_exports__["a"] = ({
-  state: state,
-  getters: getters,
-  actions: actions,
-  mutations: mutations
-});
-
-/***/ }),
+/* 52 */,
 /* 53 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -58496,6 +58374,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_layout_Header_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_layout_Header_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Auth_Auth_vue__ = __webpack_require__(106);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Auth_Auth_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_Auth_Auth_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(1);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 //
 //
 //
@@ -58505,37 +58386,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'app',
-  data: function data() {
-    return {
-      authenticated: auth.check(),
-      user: auth.user
-    };
-  },
-
   components: { vuHeader: __WEBPACK_IMPORTED_MODULE_0__components_layout_Header_vue___default.a, Auth: __WEBPACK_IMPORTED_MODULE_1__components_Auth_Auth_vue___default.a },
+  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["c" /* mapGetters */])('auth', ['check'])),
   beforeCreate: function beforeCreate() {
-    auth.BearerAuth();
-  },
-  created: function created() {
-    if (!this.authenticated && !this.user) console.log(this.$router);
-  },
-  mounted: function mounted() {
-    var _this = this;
-
-    Event.$on('userLoggedIn', function () {
-      _this.authenticated = true;
-      _this.user = auth.user;
-    });
-    Event.$on('userLoggedOut', function () {
-      _this.authenticated = false;
-      _this.user = auth.user;
-    });
+    var token = window.localStorage.getItem('token');
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
   }
 });
 
@@ -58636,8 +58498,7 @@ exports.push([module.i, "\n.navbar-laravel[data-v-786fbfab] {\n  background-colo
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__api__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(1);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -58682,30 +58543,17 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_1_vuex__["e" /* mapState */])('users', ['loggedUser'])),
-  methods: {
-    logout: function logout() {
-      var _this = this;
-
-      return axios.post(__WEBPACK_IMPORTED_MODULE_0__api__["d" /* users */].logout()).then(function (_ref) {
-        var data = _ref.data;
-
-        auth.logout();
-        _this.$router.push('/');
-      }).catch(function (_ref2) {
-        var response = _ref2.response;
-
-        console.log(response.data.message);
-      });
+  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('auth', ['user'])),
+  methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])('auth', ['logout']), {
+    toLogout: function toLogout() {
+      this.logout();
+      this.$router.push('/');
     }
-  }
+  })
 });
 
 /***/ }),
@@ -58746,7 +58594,7 @@ var render = function() {
                   _c("img", {
                     staticClass:
                       "img-fluid rounded-circle d-none d-md-block ml-2",
-                    attrs: { width: "30", src: _vm.loggedUser.avatar }
+                    attrs: { width: "30", src: _vm.user.avatar }
                   }),
                   _vm._v(" "),
                   _c("li", { staticClass: "nav-item dropdown" }, [
@@ -58764,7 +58612,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n              " + _vm._s(_vm.loggedUser.name) + " "
+                          "\n              " + _vm._s(_vm.user.name) + " "
                         ),
                         _c("span", { staticClass: "caret" })
                       ]
@@ -58781,7 +58629,7 @@ var render = function() {
                           "router-link",
                           {
                             staticClass: "dropdown-item",
-                            attrs: { to: "/" + _vm.loggedUser.username }
+                            attrs: { to: "/" + _vm.user.username }
                           },
                           [_vm._v("My profile")]
                         ),
@@ -58798,8 +58646,8 @@ var render = function() {
                         _c(
                           "a",
                           {
-                            staticClass: "dropdown-item",
-                            on: { click: _vm.logout }
+                            staticClass: "dropdown-item link",
+                            on: { click: _vm.toLogout }
                           },
                           [_vm._v("Logout")]
                         )
@@ -58967,7 +58815,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: { vuLogin: __WEBPACK_IMPORTED_MODULE_0__Login_vue___default.a, vuRegister: __WEBPACK_IMPORTED_MODULE_1__Register_vue___default.a },
-  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["e" /* mapState */])('authentication', ['authView']))
+  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["e" /* mapState */])('auth', ['authView']))
 });
 
 /***/ }),
@@ -59108,8 +58956,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     };
   },
 
-  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('authentication', ['messageError', 'logging'])),
-  methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapMutations */])('authentication', ['switchAuthView']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])('authentication', ['login']), {
+  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('auth', ['messageError', 'logging'])),
+  methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapMutations */])('auth', ['switchAuthView']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])('auth', ['login']), {
     toLogin: function toLogin() {
       var data = {
         username: this.username,
@@ -59404,34 +59252,21 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       name: '',
       username: '',
       email: '',
-      password: '',
-      messageError: '',
-      loading: false
+      password: ''
     };
   },
 
-  methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapMutations */])('authentication', ['switchAuthView']), {
-    register: function register() {
-      var _this = this;
-
-      this.loading = true;
-      this.messageError = '';
+  computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('auth', ['logging', 'messageError'])),
+  methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapMutations */])('auth', ['switchAuthView']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])('auth', ['register', 'login']), {
+    toRegister: function toRegister() {
       var data = {
+        name: this.name,
         username: this.username,
+        email: this.email,
         password: this.password
       };
-      return axios.post(users.login(), data).then(function (_ref) {
-        var data = _ref.data;
-
-        auth.login(data.token, data.user);
-        _this.$router.push('/');
-        _this.loading = false;
-      }).catch(function (_ref2) {
-        var response = _ref2.response;
-
-        _this.loading = false;
-        _this.messageError = response.data.message;
-      });
+      this.register(data);
+      // this.login(loginData)
     }
   })
 });
@@ -59536,7 +59371,7 @@ var render = function() {
             ) {
               return null
             }
-            _vm.register($event)
+            _vm.toRegister($event)
           },
           input: function($event) {
             if ($event.target.composing) {
@@ -59551,10 +59386,10 @@ var render = function() {
         "button",
         {
           staticClass: "register-container-account-button",
-          on: { click: _vm.register }
+          on: { click: _vm.toRegister }
         },
         [
-          !_vm.loading
+          !_vm.logging
             ? _c("span", [_vm._v("ENJOY!")])
             : _c("i", { staticClass: "fas fa-spinner loading" })
         ]
@@ -59680,7 +59515,7 @@ var render = function() {
     "div",
     { attrs: { id: "app-container" } },
     [
-      !_vm.authenticated && !_vm.user
+      !_vm.check
         ? _c("auth")
         : _c("div", [_c("vu-header"), _vm._v(" "), _c("router-view")], 1)
     ],
@@ -59955,6 +59790,124 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 130 */,
+/* 131 */,
+/* 132 */,
+/* 133 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__api__ = __webpack_require__(6);
+
+
+var state = {
+  authView: 'vu-login',
+  messageError: '',
+  logging: false,
+  requestData: {},
+  token: window.localStorage.getItem('token'),
+  user: JSON.parse(window.localStorage.getItem('user'))
+};
+var getters = {
+  check: function check(state) {
+    return !!state.token && !!state.user;
+  }
+};
+var actions = {
+  register: function register(_ref, data) {
+    var commit = _ref.commit,
+        state = _ref.state,
+        dispatch = _ref.dispatch;
+
+    commit('beforeLogin');
+    commit('loginRequestData', data);
+    return axios.post(__WEBPACK_IMPORTED_MODULE_0__api__["a" /* auth */].register(), state.requestData).then(function (_ref2) {
+      var data = _ref2.data;
+
+      dispatch('login', state.requestData);
+    }).catch(function (_ref3) {
+      var response = _ref3.response;
+
+      commit('afterLogin');
+      commit('showMessageError', response.data.message);
+    });
+  },
+  login: function login(_ref4, data) {
+    var commit = _ref4.commit,
+        state = _ref4.state;
+
+    commit('beforeLogin');
+    commit('loginRequestData', data);
+    return axios.post(__WEBPACK_IMPORTED_MODULE_0__api__["a" /* auth */].login(), state.requestData).then(function (_ref5) {
+      var data = _ref5.data;
+
+      commit('setToken', data.token);
+      commit('setUser', data.user);
+      axios.defaults.headers.common['Authorization'] = 'Bearer ' + data.token;
+      commit('afterLogin');
+    }).catch(function (_ref6) {
+      var response = _ref6.response;
+
+      commit('afterLogin');
+      commit('showMessageError', response.data.message);
+    });
+  },
+  logout: function logout(_ref7) {
+    var commit = _ref7.commit,
+        state = _ref7.state;
+
+    return axios.post(__WEBPACK_IMPORTED_MODULE_0__api__["a" /* auth */].logout()).then(function (_ref8) {
+      var data = _ref8.data;
+
+      commit('eraseToken');
+      commit('eraseUser');
+    }).catch();
+  }
+};
+var mutations = {
+  switchAuthView: function switchAuthView(state) {
+    if (state.authView == 'vu-login') state.authView = 'vu-register';else state.authView = 'vu-login';
+  },
+  beforeLogin: function beforeLogin(state) {
+    state.logging = true;
+    state.messageError = '';
+  },
+  afterLogin: function afterLogin(state) {
+    state.logging = false;
+    state.requestData = {};
+  },
+  showMessageError: function showMessageError(state, error) {
+    state.messageError = error;
+  },
+  loginRequestData: function loginRequestData(state, data) {
+    state.requestData = data;
+  },
+  setToken: function setToken(state, token) {
+    state.token = token;
+    window.localStorage.setItem('token', token);
+  },
+  eraseToken: function eraseToken(state) {
+    state.token = null;
+    window.localStorage.removeItem('token');
+  },
+  setUser: function setUser(state, user) {
+    state.user = user;
+    window.localStorage.setItem('user', JSON.stringify(user));
+  },
+  eraseUser: function eraseUser(state) {
+    state.user = null;
+    window.localStorage.removeItem('user');
+  }
+};
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+  state: state,
+  getters: getters,
+  actions: actions,
+  mutations: mutations
+});
 
 /***/ })
 /******/ ]);

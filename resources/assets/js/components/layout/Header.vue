@@ -24,17 +24,15 @@
             </a>
             <notifications user="" type="messages"></notifications>
           </li> -->
-          <img class="img-fluid rounded-circle d-none d-md-block ml-2" width="30" :src="loggedUser.avatar">
+          <img class="img-fluid rounded-circle d-none d-md-block ml-2" width="30" :src="user.avatar">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{ loggedUser.name }} <span class="caret"></span>
+                {{ user.name }} <span class="caret"></span>
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <router-link class="dropdown-item" :to="`/${loggedUser.username}`">My profile</router-link>
+                <router-link class="dropdown-item" :to="`/${user.username}`">My profile</router-link>
                 <router-link class="dropdown-item" to="/trips/create">New Trip</router-link>
-                <a class="dropdown-item" @click="logout">Logout</a>
-                <!-- <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                </form> -->
+                <a class="dropdown-item link" @click="toLogout">Logout</a>
             </div>
           </li>
         </ul>
@@ -43,23 +41,17 @@
   </nav>
 </template>
 <script>
-import { users } from '../../api'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   computed: {
-    ...mapState('users', ['loggedUser'])
+    ...mapState('auth', ['user'])
   },
   methods: {
-    logout() {
-      return axios.post(users.logout())
-        .then(({data}) => {
-          auth.logout();
-          this.$router.push('/');
-        })
-        .catch(({response}) => {                    
-          console.log(response.data.message);
-        })
+    ...mapActions('auth', ['logout']),
+    toLogout() {
+      this.logout()
+      this.$router.push('/')
     }
   }
 }

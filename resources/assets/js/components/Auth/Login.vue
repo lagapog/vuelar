@@ -36,11 +36,11 @@ export default {
     }
   },
   computed: {
-    ...mapState('authentication', ['messageError', 'logging'])
+    ...mapState('auth', ['messageError', 'logging'])
   },
   methods: {
-    ...mapMutations('authentication', ['switchAuthView']),
-    ...mapActions('authentication', ['login']),
+    ...mapMutations('auth', ['switchAuthView']),
+    ...mapActions('auth', ['login']),
     toLogin() {
       let data = {
         username: this.username,

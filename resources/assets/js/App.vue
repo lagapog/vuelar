@@ -1,6 +1,6 @@
 <template>
   <div id="app-container">
-    <auth v-if="!authenticated && !user" />
+    <auth v-if="!check" />
     <div v-else>
       <vu-header/>
       <router-view/>
@@ -10,32 +10,17 @@
 <script>
 import vuHeader from './components/layout/Header.vue'
 import Auth from './components/Auth/Auth.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'app',
-  data() {
-    return {
-      authenticated: auth.check(),
-      user: auth.user
-    }
-  },
   components: { vuHeader, Auth },
+  computed: {
+    ...mapGetters('auth', ['check']),
+  },
   beforeCreate() {
-    auth.BearerAuth()
-  },
-  created() {
-    if(!this.authenticated && !this.user)
-      console.log(this.$router)
-  },
-  mounted() {
-    Event.$on('userLoggedIn', () => {
-        this.authenticated = true
-        this.user = auth.user
-    })
-    Event.$on('userLoggedOut', () => {
-        this.authenticated = false;
-        this.user = auth.user;
-    })
+    let token = window.localStorage.getItem('token')
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
   }
 }
 </script>

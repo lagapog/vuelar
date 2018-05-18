@@ -5,9 +5,9 @@
       <input class="register-container-account-input" type="text" name="name" v-model="name" placeholder="fullname">
       <input class="register-container-account-input" type="text" name="username" v-model="username" placeholder="@username">
       <input class="register-container-account-input" type="text" name="email" v-model="email" placeholder="your@email">
-      <input class="register-container-account-input" @keyup.enter="register" type="password" name="password" v-model="password" placeholder="password">
-      <button class="register-container-account-button" @click="register">
-        <span v-if="!loading">ENJOY!</span>
+      <input class="register-container-account-input" @keyup.enter="toRegister" type="password" name="password" v-model="password" placeholder="password">
+      <button class="register-container-account-button" @click="toRegister">
+        <span v-if="!logging">ENJOY!</span>
         <i v-else class="fas fa-spinner loading"></i>
       </button>
       <span v-if="messageError" class="register-container-account-error">{{messageError}}</span>
@@ -27,7 +27,7 @@
   </div>
 </template>
 <script>
-import { mapMutations } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 
 export default {
   data() {
@@ -36,29 +36,23 @@ export default {
       username: '',
       email: '',
       password: '',
-      messageError: '',
-      loading: false,
     }
   },
+  computed: {
+    ...mapState('auth', ['logging', 'messageError'])
+  },
   methods: {
-    ...mapMutations('authentication', ['switchAuthView']),
-    register() {
-      this.loading=true
-      this.messageError=''
+    ...mapMutations('auth', ['switchAuthView']),
+    ...mapActions('auth',['register', 'login']),
+    toRegister() {
       let data = {
+        name: this.name,
         username: this.username,
+        email: this.email,
         password: this.password
       }
-      return axios.post(users.login(), data)
-        .then(({data}) => {
-          auth.login(data.token, data.user);
-          this.$router.push('/');
-          this.loading=false
-        })
-        .catch(({response}) => {             
-          this.loading=false
-          this.messageError = response.data.message
-        })
+      this.register(data)
+      // this.login(loginData)
     }
   }
 }

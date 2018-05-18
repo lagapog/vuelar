@@ -12,7 +12,7 @@ class AuthController extends Controller
     public function register() {
         User::create([
             'name' => request('name'),
-            'username' => request('usuario'),
+            'username' => request('username'),
             'email' => request('email'),
             'avatar' => 'https://picsum.photos/300/300?image=67',
             'password' => bcrypt(request('password'))

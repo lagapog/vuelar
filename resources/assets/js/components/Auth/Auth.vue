@@ -14,7 +14,7 @@ import { mapState } from 'vuex'
 export default {
   components: { vuLogin, vuRegister },
   computed: {
-    ...mapState('authentication', ['authView'])
+    ...mapState('auth', ['authView'])
   }
 }
 </script>
