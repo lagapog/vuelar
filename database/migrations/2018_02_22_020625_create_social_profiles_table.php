@@ -16,9 +16,14 @@ class CreateSocialProfilesTable extends Migration
         Schema::create('social_profiles', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->string('social_id');
+            $table->string('provider_id');
+            $table->string('provider');
+            $table->string('token');
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('CASCADE');
         });
     }
 

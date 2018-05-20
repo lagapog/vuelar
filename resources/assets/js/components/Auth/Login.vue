@@ -12,10 +12,14 @@
     </div>
     <div class="login-container-social">
       <button class="login-container-social-button facebook">
-        <i class="fab fa-facebook-f"></i> Login with facebook
+        <a href="auth/facebook">
+          <i class="fab fa-facebook-f"></i> Login with facebook
+        </a>
       </button>
       <button class="login-container-social-button twitter">
-        <i class="fab fa-twitter"></i> Login with twitter
+        <a href="auth/twitter">
+          <i class="fab fa-twitter"></i> Login with twitter
+        </a>
       </button>
       <span>Forgot your password?</span>
       <span class="link" @click="switchAuthView">Create an acccount</span>
@@ -116,9 +120,12 @@ export default {
       }&.twitter{
         background-color: $color-twitter;
       }
-      & i {
+      i {
         font-size: 1.3rem;
         margin-right: 10px;
+      }
+      a {
+        color: $color-white;
       }
     }
   }

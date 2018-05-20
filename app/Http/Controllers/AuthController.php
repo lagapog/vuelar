@@ -41,7 +41,7 @@ class AuthController extends Controller
         $data = [
             'grant_type' => 'password',
             'client_id' => '2',
-            'client_secret' => 'fLBW8vjDo4rbYxUEJzCk2GJiVGoI9EZ0y2Tp4PFW',
+            'client_secret' => 'QYWxTbRJzq07s4MaNVha8QBE31dUcokKs3Y15CQ1',
             'username' => $user->email,
             'password' => request('password'),
         ];

@@ -29,6 +29,14 @@ export default {
       height: auto;
     }
   }
+  @media screen and (max-width: 1055px) {
+    .auth {
+      background-color: #ABABD3;
+      &-img{
+        display: none;
+      }
+    }
+  }
   .component-fade-enter-active,.component-fade-leave-active {
     transition: opacity .3s linear;
   }
