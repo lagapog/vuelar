@@ -7,7 +7,7 @@
             By <a :href="`/${trip.user.username}`"></a>
             <router-link :to="`/${trip.user.username}`">{{ trip.user.username }}</router-link>
         </p>
-        <router-link :to="`/trips/${trip.id}`" class="btn btn-primary">Read more</router-link>
+        <router-link :to="`/${trip.user.username}/trips/${trip.id}`" class="btn btn-primary">Read more</router-link>
     </div>
   </div>  
 </template>

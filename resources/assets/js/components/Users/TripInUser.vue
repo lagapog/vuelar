@@ -6,14 +6,14 @@
         <p class="card-text">
           {{ trip.content }}    
         </p>
-        <router-link :to="`/trips/${trip.id}`" class="btn btn-primary">Read more</router-link>
+        <router-link :to="`${username}/trips/${trip.id}`" class="btn btn-primary">Read more</router-link>
     </div>
   </div>  
 </template>
 <script>
   export default {
     name: 'vuTripInUser',
-    props: ['trip']
+    props: ['trip', 'username']
   }
 </script>
 

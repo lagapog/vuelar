@@ -56407,7 +56407,7 @@ var mutations = {
 
 
 
-var routes = [{ path: '/', component: __WEBPACK_IMPORTED_MODULE_0__components_pages_Home_vue___default.a, name: 'home' }, { path: '/trips/create', component: __WEBPACK_IMPORTED_MODULE_3__components_pages_CreateTrip_vue___default.a, name: 'createTrip', meta: { middlewareAuth: true } }, { path: '/trips/:trip', component: __WEBPACK_IMPORTED_MODULE_2__components_pages_Trip_vue___default.a, name: 'trip', meta: { middlewareAuth: true } }, { path: '/:username', component: __WEBPACK_IMPORTED_MODULE_1__components_pages_User_vue___default.a, name: 'user', meta: { middlewareAuth: true } }];
+var routes = [{ path: '/', component: __WEBPACK_IMPORTED_MODULE_0__components_pages_Home_vue___default.a, name: 'home' }, { path: '/trips/create', component: __WEBPACK_IMPORTED_MODULE_3__components_pages_CreateTrip_vue___default.a, name: 'createTrip', meta: { middlewareAuth: true } }, { path: '/:username/trips/:trip', component: __WEBPACK_IMPORTED_MODULE_2__components_pages_Trip_vue___default.a, name: 'trip', meta: { middlewareAuth: true } }, { path: '/:username', component: __WEBPACK_IMPORTED_MODULE_1__components_pages_User_vue___default.a, name: 'user', meta: { middlewareAuth: true } }];
 
 /* harmony default export */ __webpack_exports__["a"] = (routes);
 
@@ -56871,7 +56871,9 @@ var render = function() {
           "router-link",
           {
             staticClass: "btn btn-primary",
-            attrs: { to: "/trips/" + _vm.trip.id }
+            attrs: {
+              to: "/" + _vm.trip.user.username + "/trips/" + _vm.trip.id
+            }
           },
           [_vm._v("Read more")]
         )
@@ -57283,7 +57285,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'vuTripInUser',
-  props: ['trip']
+  props: ['trip', 'username']
 });
 
 /***/ }),
@@ -57313,7 +57315,7 @@ var render = function() {
           "router-link",
           {
             staticClass: "btn btn-primary",
-            attrs: { to: "/trips/" + _vm.trip.id }
+            attrs: { to: _vm.username + "/trips/" + _vm.trip.id }
           },
           [_vm._v("Read more")]
         )
@@ -57997,7 +57999,11 @@ var render = function() {
                     key: trip.id,
                     staticClass: "col-12 col-md-6 col-xl-4 mb-4"
                   },
-                  [_c("vu-trip-in-user", { attrs: { trip: trip } })],
+                  [
+                    _c("vu-trip-in-user", {
+                      attrs: { trip: trip, username: _vm.user.username }
+                    })
+                  ],
                   1
                 )
               })

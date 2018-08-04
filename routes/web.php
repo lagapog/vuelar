@@ -15,8 +15,7 @@ Route::get('/', 'PagesController@index');
 Route::get('/auth/{provider}', 'SocialAuthController@redirectToProvider');
 Route::get('/auth/{provider}/callback', 'SocialAuthController@handleProviderCallback');
 
-Route::get('/{any}', 'PagesController@index');
-Route::get('/trips/{any}', 'PagesController@index');
+Route::get('{any}/{another?}/{end?}', 'PagesController@index');
 
 Route::match(['get', 'post'], '/conversation/{username}', 'ConversationsController@show');
 Route::post('/conversation/{conversation}/{user}', 'ConversationsController@sendMessage');

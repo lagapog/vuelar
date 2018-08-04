@@ -34,7 +34,7 @@
     <div class="row mt-2">
         <p v-if="!userHasTrips" >No trips yet</p>
         <div class="col-12 col-md-6 col-xl-4 mb-4" v-for="trip in user.trips" :key="trip.id">
-          <vu-trip-in-user :trip="trip" />
+          <vu-trip-in-user :trip="trip" :username="user.username" />
         </div>
     </div>
   </div>
