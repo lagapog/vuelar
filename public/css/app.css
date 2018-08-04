@@ -9999,6 +9999,30 @@ a.text-dark:focus {
           animation: load 1.5s linear infinite;
 }
 
+a {
+  color: #ABABD3;
+}
+
+.btn-outline-primary {
+  color: #656498;
+  border-color: #656498;
+}
+
+.btn-primary,
+.btn-outline-primary:hover {
+  background-color: #656498;
+  border-color: #656498;
+}
+
+.btn-primary:hover {
+  background-color: #47477A;
+  border-color: #47477A;
+}
+
+.border-primary {
+  border-color: #656498 !important;
+}
+
 .link {
   cursor: pointer;
 }

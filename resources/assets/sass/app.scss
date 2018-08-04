@@ -10,6 +10,26 @@
 .fas.fa-spinner.loading {
   animation: load 1.5s linear infinite;
 }
+//Override primary bootstrap color
+a{
+  color: $color-primary-light;
+}
+.btn-outline-primary {
+  color: $color-primary;
+  border-color: $color-primary;
+}
+.btn-primary,
+.btn-outline-primary:hover {
+  background-color: $color-primary;
+  border-color: $color-primary;
+}
+.btn-primary:hover {
+  background-color: $color-primary-dark;
+  border-color: $color-primary-dark;
+}
+.border-primary {
+  border-color: $color-primary !important;
+}
 //utils
 .link {
   cursor: pointer;
