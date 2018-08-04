@@ -3,8 +3,8 @@
     <div class="register-container-account">
       <h5 class="register-container-account-title">Crear una cuenta</h5>
       <input class="register-container-account-input" type="text" name="name" v-model="name" placeholder="nombres y apellidos">
-      <input class="register-container-account-input" type="text" name="username" v-model="username" placeholder="usuario" @keyup="toCheckUnique">
-      <input class="register-container-account-input" type="text" name="email" v-model="email" placeholder="ejemplo@correo.com" @keyup="toCheckUnique">
+      <input class="register-container-account-input" type="text" name="username" v-model="username" placeholder="usuario" @change="toCheckUnique">
+      <input class="register-container-account-input" type="text" name="email" v-model="email" placeholder="ejemplo@correo.com" @change="toCheckUnique">
       <input class="register-container-account-input" @keyup.enter="toRegister" type="password" name="password" v-model="password" placeholder="contraseña">
       <button class="register-container-account-button" @click="toRegister">
         <span v-if="!logging">Registrarme</span>
@@ -13,12 +13,16 @@
       <span v-if="messageError" class="register-container-account-error">{{messageError}}</span>
     </div>
     <div class="register-container-social">
-      <button class="register-container-social-button facebook">
-        <i class="fab fa-facebook-f"></i> Usar facebook
-      </button>
-      <button class="register-container-social-button twitter">
-        <i class="fab fa-twitter"></i> Usar twitter
-      </button>
+      <a href="auth/facebook">
+        <button class="register-container-social-button facebook">
+          <i class="fab fa-facebook-f"></i> Usar facebook
+        </button>
+      </a>
+      <a href="auth/twitter">
+        <button class="register-container-social-button twitter">
+          <i class="fab fa-twitter"></i> Usar twitter
+        </button>
+      </a>
       <span class="link" @click="switchAuthView">Ya tengo una cuenta</span>
     </div>
     <div class="register-container-arrow">

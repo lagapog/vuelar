@@ -11,16 +11,16 @@
       <span v-if="messageError" class="login-container-account-error">{{messageError}}</span>
     </div>
     <div class="login-container-social">
-      <button class="login-container-social-button facebook">
-        <a href="auth/facebook">
+      <a href="auth/facebook">
+        <button class="login-container-social-button facebook">
           <i class="fab fa-facebook-f"></i> Entrar con facebook
-        </a>
-      </button>
-      <button class="login-container-social-button twitter">
-        <a href="auth/twitter">
+        </button>
+      </a>
+      <a href="auth/twitter">
+        <button class="login-container-social-button twitter">
           <i class="fab fa-twitter"></i> Entrar con twitter
-        </a>
-      </button>
+        </button>
+      </a>
       <span class="link" @click="switchAuthView">Crear una cuenta nueva</span>
       <span>¿Olvidaste tu contraseña?</span>
     </div>
@@ -96,6 +96,7 @@ export default {
       color: $color-white;
       border-radius: 10px;
       padding: 5px 45px;
+      outline: none;
       cursor: pointer;
     }
     &-error {
@@ -114,6 +115,7 @@ export default {
       padding-top: 8px;
       padding-bottom: 8px;
       color: $color-white;
+      outline: none;
       cursor: pointer;
       &.facebook{
         background-color: $color-facebook;

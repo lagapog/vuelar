@@ -39,6 +39,10 @@
         .provider-image{
             border-radius: 50%;
         }
+        .provider-text{
+            width: 70%;
+            text-align: center;
+        }
         .provider-button {
             font-size: 1rem;
             border-radius: 10px;
@@ -54,15 +58,16 @@
     <div class="provider-container">
         <div class="provider-login">
             @if($status == '200')
-            <h3 class="provider-title">{{ $user->name }}</h3>
+            <h3 class="provider-title">Bienvenido {{ $user->name }}</h3>
             <img class="provider-image" src="{{ $user->avatar }}" alt="{{ $user->name }}">
+            <p class="provider-text">Puede editar su información personal una vez inicie sesión</p>
             <button class="provider-button" onclick="toLogin()">
-                Sí, soy yo.
+                Iniciar sesión
             </button>
             <input type="hidden" id="token" value="{{ $token }}">
             <input type="hidden" id="user" value="{{ $user }}">
             @else
-                <div class="provider-alert">
+                <div class="provider-text">
                     Hubo problemas al realizar el inicio de sesión.
                     Inténtelo nuevamente.
                 </div>

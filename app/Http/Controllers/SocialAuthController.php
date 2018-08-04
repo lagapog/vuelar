@@ -16,9 +16,6 @@ class SocialAuthController extends Controller
 
     public function handleProviderCallback ($provider) {
         $socialiteUser = Socialite::driver($provider)->user();
-        if($socialiteUser->email == null) {
-            $socialiteUser->email = bcrypt($socialiteUser->name);
-        }
         $user = $this->findOrCreateUser($provider, $socialiteUser);
         $data = [
             'grant_type' => 'password',
@@ -47,10 +44,10 @@ class SocialAuthController extends Controller
             return $user;
         }
         $user = User::create([
-            'username' => str_random(15),
+            'username' => $socialiteUser->getId(),
             'name' => $socialiteUser->getName(),
-            'email' => $socialiteUser->getEmail(),
-            'password' => bcrypt($socialiteUser->getEmail()),
+            'email' => $socialiteUser->getId(),
+            'password' => bcrypt($socialiteUser->getId()),
             'avatar' => $socialiteUser->getAvatar(),
         ]);
         $this->addSocialAccount($provider, $user, $socialiteUser);

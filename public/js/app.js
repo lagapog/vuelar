@@ -59030,7 +59030,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.login-container[data-v-55f43099] {\n  position: absolute;\n  top: calc(50vh - 255px);\n  right: calc(50vw - 185px);\n  width: 370px;\n  height: 510px;\n  max-height: 100vh;\n  border-radius: 10px;\n  -webkit-box-shadow: 2px 2px 8px 1px rgba(0, 0, 0, 0.5), -2px -2px 8px 1px rgba(0, 0, 0, 0.5);\n          box-shadow: 2px 2px 8px 1px rgba(0, 0, 0, 0.5), -2px -2px 8px 1px rgba(0, 0, 0, 0.5);\n  overflow: hidden;\n}\n.login-container-account[data-v-55f43099], .login-container-social[data-v-55f43099] {\n    height: 50%;\n    width: 100%;\n    display: grid;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    justify-items: center;\n}\n.login-container-account[data-v-55f43099] {\n    background-color: rgba(101, 100, 152, 0.75);\n    padding-top: 30px;\n    padding-bottom: 30px;\n    grid-template-rows: 1.5rem repeat(3, 1fr) 1.2rem;\n}\n.login-container-account-title[data-v-55f43099] {\n      color: #f5f8fa;\n      margin-bottom: 0;\n}\n.login-container-account-input[data-v-55f43099] {\n      border: none;\n      border-radius: 10px;\n      text-align: center;\n      padding: 5px 30px;\n}\n.login-container-account-button[data-v-55f43099] {\n      background: transparent;\n      border: 1px solid #f5f8fa;\n      color: #f5f8fa;\n      border-radius: 10px;\n      padding: 5px 45px;\n      cursor: pointer;\n}\n.login-container-account-error[data-v-55f43099] {\n      color: #67ed00;\n}\n.login-container-social[data-v-55f43099] {\n    background-color: #f5f8fa;\n    padding-top: 40px;\n    padding-bottom: 40px;\n    grid-template-rows: repeat(2, 1fr) repeat(2, 1.8rem);\n}\n.login-container-social-button[data-v-55f43099] {\n      border: none;\n      border-radius: 10px;\n      width: 200px;\n      padding-top: 8px;\n      padding-bottom: 8px;\n      color: #f5f8fa;\n      cursor: pointer;\n}\n.login-container-social-button.facebook[data-v-55f43099] {\n        background-color: #4267b2;\n}\n.login-container-social-button.twitter[data-v-55f43099] {\n        background-color: #48AAE6;\n}\n.login-container-social-button i[data-v-55f43099] {\n        font-size: 1.3rem;\n        margin-right: 10px;\n}\n.login-container-social-button a[data-v-55f43099] {\n        color: #f5f8fa;\n}\n.login-container-arrow[data-v-55f43099] {\n    position: absolute;\n    background-color: #f5f8fa;\n    -webkit-box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.2), -1px -1px 2px 1px rgba(0, 0, 0, 0.2);\n            box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.2), -1px -1px 2px 1px rgba(0, 0, 0, 0.2);\n    color: #47477A;\n    height: 50px;\n    width: 50px;\n    text-align: center;\n    font-size: 25px;\n    font-weight: 100;\n    line-height: 50px;\n    border-radius: 50%;\n    top: calc(50% - 25px);\n    right: calc(50% - 25px);\n}\n", ""]);
+exports.push([module.i, "\n.login-container[data-v-55f43099] {\n  position: absolute;\n  top: calc(50vh - 255px);\n  right: calc(50vw - 185px);\n  width: 370px;\n  height: 510px;\n  max-height: 100vh;\n  border-radius: 10px;\n  -webkit-box-shadow: 2px 2px 8px 1px rgba(0, 0, 0, 0.5), -2px -2px 8px 1px rgba(0, 0, 0, 0.5);\n          box-shadow: 2px 2px 8px 1px rgba(0, 0, 0, 0.5), -2px -2px 8px 1px rgba(0, 0, 0, 0.5);\n  overflow: hidden;\n}\n.login-container-account[data-v-55f43099], .login-container-social[data-v-55f43099] {\n    height: 50%;\n    width: 100%;\n    display: grid;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    justify-items: center;\n}\n.login-container-account[data-v-55f43099] {\n    background-color: rgba(101, 100, 152, 0.75);\n    padding-top: 30px;\n    padding-bottom: 30px;\n    grid-template-rows: 1.5rem repeat(3, 1fr) 1.2rem;\n}\n.login-container-account-title[data-v-55f43099] {\n      color: #f5f8fa;\n      margin-bottom: 0;\n}\n.login-container-account-input[data-v-55f43099] {\n      border: none;\n      border-radius: 10px;\n      text-align: center;\n      padding: 5px 30px;\n}\n.login-container-account-button[data-v-55f43099] {\n      background: transparent;\n      border: 1px solid #f5f8fa;\n      color: #f5f8fa;\n      border-radius: 10px;\n      padding: 5px 45px;\n      outline: none;\n      cursor: pointer;\n}\n.login-container-account-error[data-v-55f43099] {\n      color: #67ed00;\n}\n.login-container-social[data-v-55f43099] {\n    background-color: #f5f8fa;\n    padding-top: 40px;\n    padding-bottom: 40px;\n    grid-template-rows: repeat(2, 1fr) repeat(2, 1.8rem);\n}\n.login-container-social-button[data-v-55f43099] {\n      border: none;\n      border-radius: 10px;\n      width: 200px;\n      padding-top: 8px;\n      padding-bottom: 8px;\n      color: #f5f8fa;\n      outline: none;\n      cursor: pointer;\n}\n.login-container-social-button.facebook[data-v-55f43099] {\n        background-color: #4267b2;\n}\n.login-container-social-button.twitter[data-v-55f43099] {\n        background-color: #48AAE6;\n}\n.login-container-social-button i[data-v-55f43099] {\n        font-size: 1.3rem;\n        margin-right: 10px;\n}\n.login-container-social-button a[data-v-55f43099] {\n        color: #f5f8fa;\n}\n.login-container-arrow[data-v-55f43099] {\n    position: absolute;\n    background-color: #f5f8fa;\n    -webkit-box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.2), -1px -1px 2px 1px rgba(0, 0, 0, 0.2);\n            box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.2), -1px -1px 2px 1px rgba(0, 0, 0, 0.2);\n    color: #47477A;\n    height: 50px;\n    width: 50px;\n    text-align: center;\n    font-size: 25px;\n    font-weight: 100;\n    line-height: 50px;\n    border-radius: 50%;\n    top: calc(50% - 25px);\n    right: calc(50% - 25px);\n}\n", ""]);
 
 // exports
 
@@ -59209,31 +59209,23 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      { staticClass: "login-container-social-button facebook" },
-      [
-        _c("a", { attrs: { href: "auth/facebook" } }, [
-          _c("i", { staticClass: "fab fa-facebook-f" }),
-          _vm._v(" Entrar con facebook\n      ")
-        ])
-      ]
-    )
+    return _c("a", { attrs: { href: "auth/facebook" } }, [
+      _c("button", { staticClass: "login-container-social-button facebook" }, [
+        _c("i", { staticClass: "fab fa-facebook-f" }),
+        _vm._v(" Entrar con facebook\n      ")
+      ])
+    ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      { staticClass: "login-container-social-button twitter" },
-      [
-        _c("a", { attrs: { href: "auth/twitter" } }, [
-          _c("i", { staticClass: "fab fa-twitter" }),
-          _vm._v(" Entrar con twitter\n      ")
-        ])
-      ]
-    )
+    return _c("a", { attrs: { href: "auth/twitter" } }, [
+      _c("button", { staticClass: "login-container-social-button twitter" }, [
+        _c("i", { staticClass: "fab fa-twitter" }),
+        _vm._v(" Entrar con twitter\n      ")
+      ])
+    ])
   },
   function() {
     var _vm = this
@@ -59381,6 +59373,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -59468,7 +59464,7 @@ var render = function() {
         attrs: { type: "text", name: "username", placeholder: "usuario" },
         domProps: { value: _vm.username },
         on: {
-          keyup: _vm.toCheckUnique,
+          change: _vm.toCheckUnique,
           input: function($event) {
             if ($event.target.composing) {
               return
@@ -59495,7 +59491,7 @@ var render = function() {
         },
         domProps: { value: _vm.email },
         on: {
-          keyup: _vm.toCheckUnique,
+          change: _vm.toCheckUnique,
           input: function($event) {
             if ($event.target.composing) {
               return
@@ -59578,27 +59574,31 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      { staticClass: "register-container-social-button facebook" },
-      [
-        _c("i", { staticClass: "fab fa-facebook-f" }),
-        _vm._v(" Usar facebook\n    ")
-      ]
-    )
+    return _c("a", { attrs: { href: "auth/facebook" } }, [
+      _c(
+        "button",
+        { staticClass: "register-container-social-button facebook" },
+        [
+          _c("i", { staticClass: "fab fa-facebook-f" }),
+          _vm._v(" Usar facebook\n      ")
+        ]
+      )
+    ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "button",
-      { staticClass: "register-container-social-button twitter" },
-      [
-        _c("i", { staticClass: "fab fa-twitter" }),
-        _vm._v(" Usar twitter\n    ")
-      ]
-    )
+    return _c("a", { attrs: { href: "auth/twitter" } }, [
+      _c(
+        "button",
+        { staticClass: "register-container-social-button twitter" },
+        [
+          _c("i", { staticClass: "fab fa-twitter" }),
+          _vm._v(" Usar twitter\n      ")
+        ]
+      )
+    ])
   },
   function() {
     var _vm = this
