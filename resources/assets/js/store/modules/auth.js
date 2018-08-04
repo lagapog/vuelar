@@ -48,10 +48,17 @@ const actions = {
         commit('eraseUser')
       })
       .catch()
+  },
+  checkUnique({commit}, requestData){
+    return axios.post(auth.checkUnique(), requestData)
+      .then(({data}) => {
+        commit('showMessageError', data.message)
+      })
   }
 }
 const mutations = {
   switchAuthView(state) {
+    state.messageError = ''
     if(state.authView=='vu-login') 
       state.authView = 'vu-register'
     else

@@ -1817,6 +1817,9 @@ var auth = {
   },
   logout: function logout() {
     return baseUrl + '/api/logout';
+  },
+  checkUnique: function checkUnique() {
+    return baseUrl + '/api/checkUnique';
   }
 };
 
@@ -56331,10 +56334,20 @@ var actions = {
       commit('eraseToken');
       commit('eraseUser');
     }).catch();
+  },
+  checkUnique: function checkUnique(_ref9, requestData) {
+    var commit = _ref9.commit;
+
+    return axios.post(__WEBPACK_IMPORTED_MODULE_0__api__["a" /* auth */].checkUnique(), requestData).then(function (_ref10) {
+      var data = _ref10.data;
+
+      commit('showMessageError', data.message);
+    });
   }
 };
 var mutations = {
   switchAuthView: function switchAuthView(state) {
+    state.messageError = '';
     if (state.authView == 'vu-login') state.authView = 'vu-register';else state.authView = 'vu-login';
   },
   beforeLogin: function beforeLogin(state) {
@@ -59017,7 +59030,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.login-container[data-v-55f43099] {\n  position: absolute;\n  top: calc(50vh - 255px);\n  right: calc(50vw - 185px);\n  width: 370px;\n  height: 510px;\n  max-height: 100vh;\n  border-radius: 10px;\n  -webkit-box-shadow: 2px 2px 8px 1px rgba(0, 0, 0, 0.5), -2px -2px 8px 1px rgba(0, 0, 0, 0.5);\n          box-shadow: 2px 2px 8px 1px rgba(0, 0, 0, 0.5), -2px -2px 8px 1px rgba(0, 0, 0, 0.5);\n  overflow: hidden;\n}\n.login-container-account[data-v-55f43099], .login-container-social[data-v-55f43099] {\n    height: 50%;\n    width: 100%;\n    display: grid;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    justify-items: center;\n}\n.login-container-account[data-v-55f43099] {\n    background-color: rgba(101, 100, 152, 0.75);\n    padding-top: 40px;\n    padding-bottom: 40px;\n    grid-template-rows: 1.5rem repeat(3, 1fr) 1.2rem;\n}\n.login-container-account-title[data-v-55f43099] {\n      color: #f5f8fa;\n      margin-bottom: 0;\n}\n.login-container-account-input[data-v-55f43099] {\n      border: none;\n      border-radius: 10px;\n      text-align: center;\n      padding: 5px 30px;\n}\n.login-container-account-button[data-v-55f43099] {\n      background: transparent;\n      border: 1px solid #f5f8fa;\n      color: #f5f8fa;\n      border-radius: 10px;\n      padding: 5px 45px;\n      cursor: pointer;\n}\n.login-container-account-error[data-v-55f43099] {\n      color: #ff8282;\n}\n.login-container-social[data-v-55f43099] {\n    background-color: #f5f8fa;\n    padding-top: 40px;\n    padding-bottom: 40px;\n    grid-template-rows: repeat(2, 1fr) repeat(2, 1.8rem);\n}\n.login-container-social-button[data-v-55f43099] {\n      border: none;\n      border-radius: 10px;\n      width: 200px;\n      padding-top: 8px;\n      padding-bottom: 8px;\n      color: #f5f8fa;\n      cursor: pointer;\n}\n.login-container-social-button.facebook[data-v-55f43099] {\n        background-color: #4267b2;\n}\n.login-container-social-button.twitter[data-v-55f43099] {\n        background-color: #48AAE6;\n}\n.login-container-social-button i[data-v-55f43099] {\n        font-size: 1.3rem;\n        margin-right: 10px;\n}\n.login-container-social-button a[data-v-55f43099] {\n        color: #f5f8fa;\n}\n.login-container-arrow[data-v-55f43099] {\n    position: absolute;\n    background-color: #f5f8fa;\n    -webkit-box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.2), -1px -1px 2px 1px rgba(0, 0, 0, 0.2);\n            box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.2), -1px -1px 2px 1px rgba(0, 0, 0, 0.2);\n    color: #47477A;\n    height: 50px;\n    width: 50px;\n    text-align: center;\n    font-size: 25px;\n    font-weight: 100;\n    line-height: 50px;\n    border-radius: 50%;\n    top: calc(50% - 25px);\n    right: calc(50% - 25px);\n}\n", ""]);
+exports.push([module.i, "\n.login-container[data-v-55f43099] {\n  position: absolute;\n  top: calc(50vh - 255px);\n  right: calc(50vw - 185px);\n  width: 370px;\n  height: 510px;\n  max-height: 100vh;\n  border-radius: 10px;\n  -webkit-box-shadow: 2px 2px 8px 1px rgba(0, 0, 0, 0.5), -2px -2px 8px 1px rgba(0, 0, 0, 0.5);\n          box-shadow: 2px 2px 8px 1px rgba(0, 0, 0, 0.5), -2px -2px 8px 1px rgba(0, 0, 0, 0.5);\n  overflow: hidden;\n}\n.login-container-account[data-v-55f43099], .login-container-social[data-v-55f43099] {\n    height: 50%;\n    width: 100%;\n    display: grid;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    justify-items: center;\n}\n.login-container-account[data-v-55f43099] {\n    background-color: rgba(101, 100, 152, 0.75);\n    padding-top: 30px;\n    padding-bottom: 30px;\n    grid-template-rows: 1.5rem repeat(3, 1fr) 1.2rem;\n}\n.login-container-account-title[data-v-55f43099] {\n      color: #f5f8fa;\n      margin-bottom: 0;\n}\n.login-container-account-input[data-v-55f43099] {\n      border: none;\n      border-radius: 10px;\n      text-align: center;\n      padding: 5px 30px;\n}\n.login-container-account-button[data-v-55f43099] {\n      background: transparent;\n      border: 1px solid #f5f8fa;\n      color: #f5f8fa;\n      border-radius: 10px;\n      padding: 5px 45px;\n      cursor: pointer;\n}\n.login-container-account-error[data-v-55f43099] {\n      color: #67ed00;\n}\n.login-container-social[data-v-55f43099] {\n    background-color: #f5f8fa;\n    padding-top: 40px;\n    padding-bottom: 40px;\n    grid-template-rows: repeat(2, 1fr) repeat(2, 1.8rem);\n}\n.login-container-social-button[data-v-55f43099] {\n      border: none;\n      border-radius: 10px;\n      width: 200px;\n      padding-top: 8px;\n      padding-bottom: 8px;\n      color: #f5f8fa;\n      cursor: pointer;\n}\n.login-container-social-button.facebook[data-v-55f43099] {\n        background-color: #4267b2;\n}\n.login-container-social-button.twitter[data-v-55f43099] {\n        background-color: #48AAE6;\n}\n.login-container-social-button i[data-v-55f43099] {\n        font-size: 1.3rem;\n        margin-right: 10px;\n}\n.login-container-social-button a[data-v-55f43099] {\n        color: #f5f8fa;\n}\n.login-container-arrow[data-v-55f43099] {\n    position: absolute;\n    background-color: #f5f8fa;\n    -webkit-box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.2), -1px -1px 2px 1px rgba(0, 0, 0, 0.2);\n            box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.2), -1px -1px 2px 1px rgba(0, 0, 0, 0.2);\n    color: #47477A;\n    height: 50px;\n    width: 50px;\n    text-align: center;\n    font-size: 25px;\n    font-weight: 100;\n    line-height: 50px;\n    border-radius: 50%;\n    top: calc(50% - 25px);\n    right: calc(50% - 25px);\n}\n", ""]);
 
 // exports
 
@@ -59096,7 +59109,7 @@ var render = function() {
   return _c("div", { staticClass: "login-container" }, [
     _c("div", { staticClass: "login-container-account" }, [
       _c("h5", { staticClass: "login-container-account-title" }, [
-        _vm._v("LOGIN")
+        _vm._v("Ingresa con tu cuenta")
       ]),
       _vm._v(" "),
       _c("input", {
@@ -59109,7 +59122,7 @@ var render = function() {
           }
         ],
         staticClass: "login-container-account-input",
-        attrs: { type: "text", name: "username", placeholder: "@username" },
+        attrs: { type: "text", name: "username", placeholder: "usuario" },
         domProps: { value: _vm.username },
         on: {
           input: function($event) {
@@ -59131,7 +59144,11 @@ var render = function() {
           }
         ],
         staticClass: "login-container-account-input",
-        attrs: { type: "password", name: "password", placeholder: "password" },
+        attrs: {
+          type: "password",
+          name: "password",
+          placeholder: "contraseña"
+        },
         domProps: { value: _vm.password },
         on: {
           keyup: function($event) {
@@ -59160,7 +59177,7 @@ var render = function() {
         },
         [
           !_vm.logging
-            ? _c("span", [_vm._v("GO!")])
+            ? _c("span", [_vm._v("iniciar")])
             : _c("i", { staticClass: "fas fa-spinner loading" })
         ]
       ),
@@ -59177,11 +59194,11 @@ var render = function() {
       _vm._v(" "),
       _vm._m(1),
       _vm._v(" "),
-      _c("span", [_vm._v("Forgot your password?")]),
-      _vm._v(" "),
       _c("span", { staticClass: "link", on: { click: _vm.switchAuthView } }, [
-        _vm._v("Create an acccount")
-      ])
+        _vm._v("Crear una cuenta nueva")
+      ]),
+      _vm._v(" "),
+      _c("span", [_vm._v("¿Olvidaste tu contraseña?")])
     ]),
     _vm._v(" "),
     _vm._m(2)
@@ -59198,7 +59215,7 @@ var staticRenderFns = [
       [
         _c("a", { attrs: { href: "auth/facebook" } }, [
           _c("i", { staticClass: "fab fa-facebook-f" }),
-          _vm._v(" Login with facebook\n      ")
+          _vm._v(" Entrar con facebook\n      ")
         ])
       ]
     )
@@ -59213,7 +59230,7 @@ var staticRenderFns = [
       [
         _c("a", { attrs: { href: "auth/twitter" } }, [
           _c("i", { staticClass: "fab fa-twitter" }),
-          _vm._v(" Login with twitter\n      ")
+          _vm._v(" Entrar con twitter\n      ")
         ])
       ]
     )
@@ -59322,7 +59339,7 @@ exports = module.exports = __webpack_require__(3)(false);
 
 
 // module
-exports.push([module.i, "\n.register-container[data-v-49f475a3] {\n  position: absolute;\n  top: calc(50vh - 275px);\n  right: calc(50vw - 185px);\n  width: 370px;\n  height: 550px;\n  max-height: 100vh;\n  border-radius: 10px;\n  -webkit-box-shadow: 2px 2px 8px 1px rgba(0, 0, 0, 0.5), -2px -2px 8px 1px rgba(0, 0, 0, 0.5);\n          box-shadow: 2px 2px 8px 1px rgba(0, 0, 0, 0.5), -2px -2px 8px 1px rgba(0, 0, 0, 0.5);\n  overflow: hidden;\n}\n.register-container-account[data-v-49f475a3], .register-container-social[data-v-49f475a3] {\n    width: 100%;\n    display: grid;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    justify-items: center;\n}\n.register-container-account[data-v-49f475a3] {\n    height: 62%;\n    background-color: rgba(101, 100, 152, 0.75);\n    padding-top: 40px;\n    padding-bottom: 30px;\n    grid-template-rows: 1.5rem repeat(5, 1fr) 1.2rem;\n}\n.register-container-account-title[data-v-49f475a3] {\n      color: #f5f8fa;\n      margin-bottom: 0;\n}\n.register-container-account-input[data-v-49f475a3] {\n      border: none;\n      border-radius: 10px;\n      text-align: center;\n      padding: 5px 30px;\n}\n.register-container-account-button[data-v-49f475a3] {\n      background: transparent;\n      border: 1px solid #f5f8fa;\n      color: #f5f8fa;\n      border-radius: 10px;\n      padding: 5px 45px;\n      cursor: pointer;\n}\n.register-container-account-error[data-v-49f475a3] {\n      color: #ff8282;\n}\n.register-container-social[data-v-49f475a3] {\n    height: 38%;\n    background-color: #f5f8fa;\n    padding-top: 40px;\n    padding-bottom: 30px;\n    grid-template-rows: repeat(2, 1fr) 1.8rem;\n}\n.register-container-social-button[data-v-49f475a3] {\n      border: none;\n      border-radius: 10px;\n      width: 200px;\n      padding-top: 8px;\n      padding-bottom: 8px;\n      color: #f5f8fa;\n      cursor: pointer;\n}\n.register-container-social-button.facebook[data-v-49f475a3] {\n        background-color: #4267b2;\n}\n.register-container-social-button.twitter[data-v-49f475a3] {\n        background-color: #48AAE6;\n}\n.register-container-social-button i[data-v-49f475a3] {\n        font-size: 1.3rem;\n        margin-right: 10px;\n}\n.register-container-arrow[data-v-49f475a3] {\n    position: absolute;\n    background-color: #f5f8fa;\n    -webkit-box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.2), -1px -1px 2px 1px rgba(0, 0, 0, 0.2);\n            box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.2), -1px -1px 2px 1px rgba(0, 0, 0, 0.2);\n    color: #47477A;\n    height: 50px;\n    width: 50px;\n    text-align: center;\n    font-size: 25px;\n    font-weight: 100;\n    line-height: 50px;\n    border-radius: 50%;\n    top: calc(62% - 25px);\n    right: calc(50% - 25px);\n}\n", ""]);
+exports.push([module.i, "\n.register-container[data-v-49f475a3] {\n  position: absolute;\n  top: calc(50vh - 275px);\n  right: calc(50vw - 185px);\n  width: 370px;\n  height: 550px;\n  max-height: 100vh;\n  border-radius: 10px;\n  -webkit-box-shadow: 2px 2px 8px 1px rgba(0, 0, 0, 0.5), -2px -2px 8px 1px rgba(0, 0, 0, 0.5);\n          box-shadow: 2px 2px 8px 1px rgba(0, 0, 0, 0.5), -2px -2px 8px 1px rgba(0, 0, 0, 0.5);\n  overflow: hidden;\n}\n.register-container-account[data-v-49f475a3], .register-container-social[data-v-49f475a3] {\n    width: 100%;\n    display: grid;\n    -webkit-box-align: center;\n        -ms-flex-align: center;\n            align-items: center;\n    justify-items: center;\n}\n.register-container-account[data-v-49f475a3] {\n    height: 62%;\n    background-color: rgba(101, 100, 152, 0.75);\n    padding-top: 30px;\n    padding-bottom: 30px;\n    grid-template-rows: 1.5rem repeat(5, 1fr) 1.2rem;\n}\n.register-container-account-title[data-v-49f475a3] {\n      color: #f5f8fa;\n      margin-bottom: 0;\n}\n.register-container-account-input[data-v-49f475a3] {\n      border: none;\n      border-radius: 10px;\n      text-align: center;\n      padding: 5px 30px;\n}\n.register-container-account-button[data-v-49f475a3] {\n      background: transparent;\n      border: 1px solid #f5f8fa;\n      color: #f5f8fa;\n      border-radius: 10px;\n      padding: 5px 45px;\n      cursor: pointer;\n}\n.register-container-account-error[data-v-49f475a3] {\n      color: #67ed00;\n}\n.register-container-social[data-v-49f475a3] {\n    height: 38%;\n    background-color: #f5f8fa;\n    padding-top: 40px;\n    padding-bottom: 30px;\n    grid-template-rows: repeat(2, 1fr) 1.8rem;\n}\n.register-container-social-button[data-v-49f475a3] {\n      border: none;\n      border-radius: 10px;\n      width: 200px;\n      padding-top: 8px;\n      padding-bottom: 8px;\n      color: #f5f8fa;\n      cursor: pointer;\n}\n.register-container-social-button.facebook[data-v-49f475a3] {\n        background-color: #4267b2;\n}\n.register-container-social-button.twitter[data-v-49f475a3] {\n        background-color: #48AAE6;\n}\n.register-container-social-button i[data-v-49f475a3] {\n        font-size: 1.3rem;\n        margin-right: 10px;\n}\n.register-container-arrow[data-v-49f475a3] {\n    position: absolute;\n    background-color: #f5f8fa;\n    -webkit-box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.2), -1px -1px 2px 1px rgba(0, 0, 0, 0.2);\n            box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.2), -1px -1px 2px 1px rgba(0, 0, 0, 0.2);\n    color: #47477A;\n    height: 50px;\n    width: 50px;\n    text-align: center;\n    font-size: 25px;\n    font-weight: 100;\n    line-height: 50px;\n    border-radius: 50%;\n    top: calc(62% - 25px);\n    right: calc(50% - 25px);\n}\n", ""]);
 
 // exports
 
@@ -59378,7 +59395,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   },
 
   computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["e" /* mapState */])('auth', ['logging', 'messageError'])),
-  methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapMutations */])('auth', ['switchAuthView']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])('auth', ['register', 'login']), {
+  methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["d" /* mapMutations */])('auth', ['switchAuthView']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])('auth', ['register', 'login', 'checkUnique']), {
     toRegister: function toRegister() {
       var data = {
         name: this.name,
@@ -59387,7 +59404,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         password: this.password
       };
       this.register(data);
-      // this.login(loginData)
+    },
+    toCheckUnique: function toCheckUnique() {
+      var data = {
+        username: this.username,
+        email: this.email
+      };
+      this.checkUnique(data);
     }
   })
 });
@@ -59403,7 +59426,7 @@ var render = function() {
   return _c("div", { staticClass: "register-container" }, [
     _c("div", { staticClass: "register-container-account" }, [
       _c("h5", { staticClass: "register-container-account-title" }, [
-        _vm._v("REGISTER")
+        _vm._v("Crear una cuenta")
       ]),
       _vm._v(" "),
       _c("input", {
@@ -59416,7 +59439,11 @@ var render = function() {
           }
         ],
         staticClass: "register-container-account-input",
-        attrs: { type: "text", name: "name", placeholder: "fullname" },
+        attrs: {
+          type: "text",
+          name: "name",
+          placeholder: "nombres y apellidos"
+        },
         domProps: { value: _vm.name },
         on: {
           input: function($event) {
@@ -59438,9 +59465,10 @@ var render = function() {
           }
         ],
         staticClass: "register-container-account-input",
-        attrs: { type: "text", name: "username", placeholder: "@username" },
+        attrs: { type: "text", name: "username", placeholder: "usuario" },
         domProps: { value: _vm.username },
         on: {
+          keyup: _vm.toCheckUnique,
           input: function($event) {
             if ($event.target.composing) {
               return
@@ -59460,9 +59488,14 @@ var render = function() {
           }
         ],
         staticClass: "register-container-account-input",
-        attrs: { type: "text", name: "email", placeholder: "your@email" },
+        attrs: {
+          type: "text",
+          name: "email",
+          placeholder: "ejemplo@correo.com"
+        },
         domProps: { value: _vm.email },
         on: {
+          keyup: _vm.toCheckUnique,
           input: function($event) {
             if ($event.target.composing) {
               return
@@ -59482,7 +59515,11 @@ var render = function() {
           }
         ],
         staticClass: "register-container-account-input",
-        attrs: { type: "password", name: "password", placeholder: "password" },
+        attrs: {
+          type: "password",
+          name: "password",
+          placeholder: "contraseña"
+        },
         domProps: { value: _vm.password },
         on: {
           keyup: function($event) {
@@ -59511,7 +59548,7 @@ var render = function() {
         },
         [
           !_vm.logging
-            ? _c("span", [_vm._v("ENJOY!")])
+            ? _c("span", [_vm._v("Registrarme")])
             : _c("i", { staticClass: "fas fa-spinner loading" })
         ]
       ),
@@ -59529,7 +59566,7 @@ var render = function() {
       _vm._m(1),
       _vm._v(" "),
       _c("span", { staticClass: "link", on: { click: _vm.switchAuthView } }, [
-        _vm._v("Already have an account?")
+        _vm._v("Ya tengo una cuenta")
       ])
     ]),
     _vm._v(" "),
@@ -59546,7 +59583,7 @@ var staticRenderFns = [
       { staticClass: "register-container-social-button facebook" },
       [
         _c("i", { staticClass: "fab fa-facebook-f" }),
-        _vm._v(" Register with facebook\n    ")
+        _vm._v(" Usar facebook\n    ")
       ]
     )
   },
@@ -59559,7 +59596,7 @@ var staticRenderFns = [
       { staticClass: "register-container-social-button twitter" },
       [
         _c("i", { staticClass: "fab fa-twitter" }),
-        _vm._v(" Register with twitter\n    ")
+        _vm._v(" Usar twitter\n    ")
       ]
     )
   },

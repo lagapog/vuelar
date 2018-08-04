@@ -1,25 +1,25 @@
 <template>
   <div class="register-container">
     <div class="register-container-account">
-      <h5 class="register-container-account-title">REGISTER</h5>
-      <input class="register-container-account-input" type="text" name="name" v-model="name" placeholder="fullname">
-      <input class="register-container-account-input" type="text" name="username" v-model="username" placeholder="@username">
-      <input class="register-container-account-input" type="text" name="email" v-model="email" placeholder="your@email">
-      <input class="register-container-account-input" @keyup.enter="toRegister" type="password" name="password" v-model="password" placeholder="password">
+      <h5 class="register-container-account-title">Crear una cuenta</h5>
+      <input class="register-container-account-input" type="text" name="name" v-model="name" placeholder="nombres y apellidos">
+      <input class="register-container-account-input" type="text" name="username" v-model="username" placeholder="usuario" @keyup="toCheckUnique">
+      <input class="register-container-account-input" type="text" name="email" v-model="email" placeholder="ejemplo@correo.com" @keyup="toCheckUnique">
+      <input class="register-container-account-input" @keyup.enter="toRegister" type="password" name="password" v-model="password" placeholder="contraseña">
       <button class="register-container-account-button" @click="toRegister">
-        <span v-if="!logging">ENJOY!</span>
+        <span v-if="!logging">Registrarme</span>
         <i v-else class="fas fa-spinner loading"></i>
       </button>
       <span v-if="messageError" class="register-container-account-error">{{messageError}}</span>
     </div>
     <div class="register-container-social">
       <button class="register-container-social-button facebook">
-        <i class="fab fa-facebook-f"></i> Register with facebook
+        <i class="fab fa-facebook-f"></i> Usar facebook
       </button>
       <button class="register-container-social-button twitter">
-        <i class="fab fa-twitter"></i> Register with twitter
+        <i class="fab fa-twitter"></i> Usar twitter
       </button>
-      <span class="link" @click="switchAuthView">Already have an account?</span>
+      <span class="link" @click="switchAuthView">Ya tengo una cuenta</span>
     </div>
     <div class="register-container-arrow">
       <i class="fas fa-chevron-down"></i>
@@ -43,7 +43,11 @@ export default {
   },
   methods: {
     ...mapMutations('auth', ['switchAuthView']),
-    ...mapActions('auth',['register', 'login']),
+    ...mapActions('auth',[
+      'register',
+      'login',
+      'checkUnique'
+    ]),
     toRegister() {
       let data = {
         name: this.name,
@@ -52,7 +56,13 @@ export default {
         password: this.password
       }
       this.register(data)
-      // this.login(loginData)
+    },
+    toCheckUnique() {
+      let data = {
+        username: this.username,
+        email: this.email
+      }
+      this.checkUnique(data)
     }
   }
 }
@@ -79,7 +89,7 @@ export default {
   &-account {
     height: 62%;
     background-color: $color-primary-alpha;
-    padding-top: 40px;
+    padding-top: 30px;
     padding-bottom: 30px;
     grid-template-rows: 1.5rem repeat(5, 1fr) 1.2rem;
     &-title {
@@ -101,7 +111,7 @@ export default {
       cursor: pointer;
     }
     &-error {
-      color: #ff8282;
+      color: $color-error-message;
     }
   }
   &-social {

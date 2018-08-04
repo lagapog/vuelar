@@ -9,6 +9,33 @@ use App\User;
 
 class AuthController extends Controller
 {
+    public function checkUnique() {
+        $userByUsername = User::whereUsername(request('username'))->first();
+        $userByEmail = User::whereEmail(request('email'))->first();
+        if ($userByEmail && $userByUsername) {
+            $message = 'correo y usuario ya en uso';
+            $status = 403;
+        } else if($userByEmail) {
+            $message = 'este correo ya está en uso';
+            $status = 403;
+        } else if($userByUsername) {
+            $message = 'este usuario ya está en uso';
+            $status = 403;
+        } else {
+            $message = '';
+            $status = 200;
+        }
+        return response()->json([
+            'message' => $message,
+            'status' => $status
+        ]);
+    }
+    public function checkEmail() {
+        return response()->json([
+            'message' => $data->message,
+            'status' => $data->status
+        ]);
+    }
     public function register() {
         User::create([
             'name' => request('name'),
@@ -26,7 +53,7 @@ class AuthController extends Controller
 
         if (!$user) {
             return response()->json([
-                'message' => 'Wrong username or password',
+                'message' => 'Usuario o contraseña incorrecta',
                 'status' => 422
             ], 422);
         }
@@ -34,7 +61,7 @@ class AuthController extends Controller
         // belongs to this user
         if (!Hash::check(request('password'), $user->password)) {
             return response()->json([
-                'message' => 'Wrong username or password',
+                'message' => 'Usuario o contraseña incorrecta',
                 'status' => 422
             ], 422);
         }
@@ -50,7 +77,7 @@ class AuthController extends Controller
             
         if ($response->getStatusCode() != 200) {
             return response()->json([
-                'message' => 'Wrong email or password',
+                'message' => 'Usuario o contraseña incorrecta',
                 'status' => 422
             ], 422);
         }

@@ -1,11 +1,11 @@
 <template>
   <div class="login-container">
     <div class="login-container-account">
-      <h5 class="login-container-account-title">LOGIN</h5>
-      <input class="login-container-account-input" type="text" name="username" v-model="username" placeholder="@username">
-      <input class="login-container-account-input" @keyup.enter="toLogin" type="password" name="password" v-model="password" placeholder="password">
+      <h5 class="login-container-account-title">Ingresa con tu cuenta</h5>
+      <input class="login-container-account-input" type="text" name="username" v-model="username" placeholder="usuario">
+      <input class="login-container-account-input" @keyup.enter="toLogin" type="password" name="password" v-model="password" placeholder="contraseña">
       <button class="login-container-account-button" @click="toLogin">
-        <span v-if="!logging">GO!</span>
+        <span v-if="!logging">iniciar</span>
         <i v-else class="fas fa-spinner loading"></i>
       </button>
       <span v-if="messageError" class="login-container-account-error">{{messageError}}</span>
@@ -13,16 +13,16 @@
     <div class="login-container-social">
       <button class="login-container-social-button facebook">
         <a href="auth/facebook">
-          <i class="fab fa-facebook-f"></i> Login with facebook
+          <i class="fab fa-facebook-f"></i> Entrar con facebook
         </a>
       </button>
       <button class="login-container-social-button twitter">
         <a href="auth/twitter">
-          <i class="fab fa-twitter"></i> Login with twitter
+          <i class="fab fa-twitter"></i> Entrar con twitter
         </a>
       </button>
-      <span>Forgot your password?</span>
-      <span class="link" @click="switchAuthView">Create an acccount</span>
+      <span class="link" @click="switchAuthView">Crear una cuenta nueva</span>
+      <span>¿Olvidaste tu contraseña?</span>
     </div>
     <div class="login-container-arrow">
       <i class="fas fa-chevron-down"></i>
@@ -77,8 +77,8 @@ export default {
   }
   &-account {
     background-color: $color-primary-alpha;
-    padding-top: 40px;
-    padding-bottom: 40px;
+    padding-top: 30px;
+    padding-bottom: 30px;
     grid-template-rows: 1.5rem repeat(3, 1fr) 1.2rem;
     &-title {
       color: $color-white;
@@ -99,7 +99,7 @@ export default {
       cursor: pointer;
     }
     &-error {
-      color: #ff8282;
+      color: $color-error-message;
     }
   }
   &-social {

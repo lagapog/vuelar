@@ -16,6 +16,7 @@ use App\User;
 */
 Route::post('/register', 'AuthController@register');
 Route::post('/login', 'AuthController@login');
+Route::post('/checkUnique', 'AuthController@checkUnique');
 Route::middleware('auth:api')->group(function () {
     //Authentication
     Route::post('/logout', 'AuthController@logout');

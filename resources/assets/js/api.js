@@ -42,6 +42,9 @@ const auth = {
   },
   logout() {
     return `${baseUrl}/api/logout`
+  },
+  checkUnique() {
+    return `${baseUrl}/api/checkUnique`
   }
 }
 
