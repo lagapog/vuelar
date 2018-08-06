@@ -4,7 +4,6 @@ namespace App\Notifications;
 
 use App\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -33,7 +32,7 @@ class MessageReceived extends Notification
      */
     public function via($notifiable)
     {
-        return ['database', 'broadcast'];
+        return ['database'];
     }
 
     /**
@@ -65,11 +64,5 @@ class MessageReceived extends Notification
             'link' => $link,
             'message' => @$message,
         ];
-    }
-
-    public function toBroadcast($notifiable) {
-        return new BroadcastMessage([
-            'data' => $this->toArray($notifiable),
-        ]);
     }
 }

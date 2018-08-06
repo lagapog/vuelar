@@ -1773,7 +1773,7 @@ module.exports = g;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return comments; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return users; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return auth; });
-var baseUrl = 'http://localhost:8000';
+var baseUrl = 'http://vuelar.local';
 
 var trips = {
   getAll: function getAll() {

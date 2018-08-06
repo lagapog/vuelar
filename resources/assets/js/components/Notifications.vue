@@ -17,10 +17,6 @@
             axios.get(`/api/notifications/${this.type}`)
                 .then(res => {
                     this.notifications = res.data
-                    Echo.private(`App.User.${this.user}`)
-                        .notification(notification => {
-                            this.notifications.unshift(notification)
-                        })
                 })
         }
     }
