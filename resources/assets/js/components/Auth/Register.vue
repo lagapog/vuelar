@@ -23,7 +23,7 @@
           <i class="fab fa-twitter"></i> Usar twitter
         </button>
       </a>
-      <span class="link" @click="switchAuthView">Ya tengo una cuenta</span>
+      <span class="link" @click="switchAuthView('login')">Ya tengo una cuenta</span>
     </div>
     <div class="register-container-arrow">
       <i class="fas fa-chevron-down"></i>
@@ -72,11 +72,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import "../../../sass/_variables";
+@import "~Sass/_variables";
 .register-container {
-  position: absolute;
-  top: $register-top;
-  right: $register-right;
   width: $register-width;
   height: $register-height;
   max-height: 100vh;

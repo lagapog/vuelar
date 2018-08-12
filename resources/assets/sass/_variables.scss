@@ -12,14 +12,12 @@ $color-twitter: #48AAE6;
 $body-bg: #f5f8fa;
 $color-error-message: #67ed00;
 // sizes
+$about-height: 550px;
+$about-width: 800px; 
 $login-height: 510px;
 $login-width: 370px;
-$login-top: calc(50vh - #{$login-height/2});
-$login-right: calc(50vw - #{$login-width/2}); 
 $register-height: 550px;
 $register-width: 370px;
-$register-top: calc(50vh - #{$register-height/2});
-$register-right: calc(50vw - #{$register-width/2}); 
 
 // Typography
 $font-family-sans-serif: "Raleway", sans-serif;

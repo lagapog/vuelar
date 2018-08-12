@@ -1,7 +1,7 @@
 import { auth } from '../../api'
 
 const state = {
-  authView: 'vu-login',
+  authView: 'vu-about',
   messageError: '',
   logging: false,
   requestData: {},
@@ -57,12 +57,9 @@ const actions = {
   }
 }
 const mutations = {
-  switchAuthView(state) {
+  switchAuthView(state, view) {
     state.messageError = ''
-    if(state.authView=='vu-login') 
-      state.authView = 'vu-register'
-    else
-      state.authView = 'vu-login'
+    state.authView = `vu-${view}`
   },
   beforeLogin(state) {
     state.logging = true

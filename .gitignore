@@ -3,6 +3,7 @@
 /public/js
 /public/css
 /public/storage
+/public/images
 /storage/*.key
 /vendor
 /.idea

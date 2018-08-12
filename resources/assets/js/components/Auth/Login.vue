@@ -21,8 +21,8 @@
           <i class="fab fa-twitter"></i> Entrar con twitter
         </button>
       </a>
-      <span class="link" @click="switchAuthView">Crear una cuenta nueva</span>
-      <span>¿Olvidaste tu contraseña?</span>
+      <span class="link" @click="switchAuthView('register')">Crear una cuenta nueva</span>
+      <span class="link" @click="switchAuthView('about')">Atrás</span>
     </div>
     <div class="login-container-arrow">
       <i class="fas fa-chevron-down"></i>
@@ -56,11 +56,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import "../../../sass/_variables";
+@import "~Sass/_variables";
 .login-container {
-  position: absolute;
-  top: $login-top;
-  right: $login-right;
   width: $login-width;
   height: $login-height;
   max-height: 100vh;

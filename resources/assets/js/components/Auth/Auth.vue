@@ -1,18 +1,19 @@
 <template>
   <div class="auth">
-    <img src="../../../images/background.jpg" class="auth-img">
+    <img src="Images/background.jpg" class="auth-img">
     <transition name="component-fade" mode="out-in">
       <component :is="authView"></component>
     </transition>
   </div>
 </template>
 <script>
+import vuAbout from './About.vue'
 import vuLogin from './Login.vue'
 import vuRegister from './Register.vue'
 import { mapState } from 'vuex'
 
 export default {
-  components: { vuLogin, vuRegister },
+  components: { vuLogin, vuRegister, vuAbout },
   computed: {
     ...mapState('auth', ['authView'])
   }
@@ -24,9 +25,15 @@ export default {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     &-img{
       width: 100%;
       height: auto;
+      position: absolute;
+      z-index: -1;
     }
   }
   @media screen and (max-width: 1055px) {
